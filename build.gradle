@@ -1,0 +1,81 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+
+    // Forge
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+
+    // Fabric
+    id 'fabric-loom' version '1.6-SNAPSHOT'
+}
+
+group = mod_group
+version = mod_version
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(java_version)
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://maven.minecraftforge.net/' }
+    maven { url = 'https://maven.fabricmc.net/' }
+}
+
+dependencies {
+
+    // ===============================
+    // Forge
+    // ===============================
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    // ===============================
+    // Fabric
+    // ===============================
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = java_version as int
+}
+
+processResources {
+    inputs.property "version", mod_version
+
+    filesMatching(['META-INF/mods.toml', 'fabric.mod.json']) {
+        expand(
+            mod_id: mod_id,
+            mod_name: mod_name,
+            mod_version: mod_version,
+            mod_description: mod_description,
+            mod_authors: mod_authors,
+            mod_license: mod_license,
+            minecraft_version: minecraft_version
+        )
+    }
+}
+
+jar {
+    archiveBaseName.set(mod_id)
+    archiveVersion.set(mod_version)
+
+    manifest {
+        attributes(
+                "Specification-Title": mod_name,
+                "Specification-Vendor": mod_authors,
+                "Specification-Version": "1",
+                "Implementation-Title": mod_name,
+                "Implementation-Version": mod_version,
+                "Implementation-Vendor": mod_authors,
+                "Built-On-Minecraft": minecraft_version
+        )
+    }
+}
+
+tasks.named('jar').configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
