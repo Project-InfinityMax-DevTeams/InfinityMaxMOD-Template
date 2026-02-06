@@ -2,51 +2,39 @@ package com.yourname.yourmod.loader.forge;
 
 import com.yourname.yourmod.loader.LoaderExpectPlatform;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
-public class ForgePlatform implements LoaderExpectPlatform {
+public final class ForgePlatform implements LoaderExpectPlatform {
+
+    private final Registries registries = new ForgeRegistriesImpl();
+    private final Network network = new ForgeNetworkImpl();
+    private final Events events = new ForgeEventsImpl();
+
+    private static final String MOD_ID = "yourmodid";
 
     @Override
     public ResourceLocation id(String path) {
-        return new ResourceLocation("yourmod", path);
+        return new ResourceLocation(MOD_ID, path);
     }
 
     @Override
-    public void registerItem(String name, Object item) {
-        ForgeRegistriesImpl.registerItem(name, item);
+    public boolean isClient() {
+        return FMLEnvironment.dist == Dist.CLIENT;
     }
 
     @Override
-    public void registerBlock(String name, Object block) {
-        ForgeRegistriesImpl.registerBlock(name, block);
+    public Registries registries() {
+        return registries;
     }
 
     @Override
-    public void registerEntity(String name, Object entity) {
-        ForgeRegistriesImpl.registerEntity(name, entity);
+    public Network network() {
+        return network;
     }
 
     @Override
-    public void registerBlockEntity(String name, Object blockEntity) {
-        ForgeRegistriesImpl.registerBlockEntity(name, blockEntity);
-    }
-
-    @Override
-    public void initNetwork() {
-        ForgeNetworkImpl.init();
-    }
-
-    @Override
-    public void sendToServer(Object packet) {
-        ForgeNetworkImpl.sendToServer(packet);
-    }
-
-    @Override
-    public void sendToClient(Object player, Object packet) {
-        ForgeNetworkImpl.sendToClient(player, packet);
-    }
-
-    @Override
-    public void registerEvents() {
-        ForgeEventsImpl.register();
+    public Events events() {
+        return events;
     }
 }
