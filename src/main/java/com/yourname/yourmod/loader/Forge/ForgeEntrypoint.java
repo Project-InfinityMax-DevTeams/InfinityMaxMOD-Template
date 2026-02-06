@@ -1,0 +1,14 @@
+package com.yourname.yourmod.loader.forge;
+
+import com.yourname.yourmod.YourMod;
+import com.yourname.yourmod.loader.Platform;
+import net.minecraftforge.fml.common.Mod;
+
+@Mod("yourmod")
+public class ForgeEntrypoint {
+
+    public ForgeEntrypoint() {
+        Platform.set(new ForgePlatform());
+        YourMod.init();
+    }
+}
