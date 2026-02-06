@@ -1,5 +1,6 @@
 package com.yourname.yourmod.api.libs.packet;
 
+import com.yourname.yourmod.loader.Platform;
 import net.minecraft.network.FriendlyByteBuf;
 
 import java.util.function.Function;
@@ -48,5 +49,15 @@ public final class Packet<T> {
         PacketRegistry.register(new SimplePacket<>(
                 id, direction, decoder, encoder, handler
         ));
+    }
+
+    /* ------------------ DSL SEND ------------------ */
+
+    public void sendToServer(T packet) {
+        Platform.get().network().sendToServer(packet);
+    }
+
+    public void sendToPlayer(Object player, T packet) {
+        Platform.get().network().sendToPlayer(player, packet);
     }
 }
