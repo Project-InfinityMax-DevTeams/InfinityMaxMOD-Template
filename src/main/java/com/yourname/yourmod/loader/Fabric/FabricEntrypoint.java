@@ -9,6 +9,9 @@ public class FabricEntrypoint implements ModInitializer {
     @Override
     public void onInitialize() {
         Platform.set(new FabricPlatform());
+
+        Platform.get().network().register();
+        Platform.get().events().register();
         YourMod.init();
     }
 }
