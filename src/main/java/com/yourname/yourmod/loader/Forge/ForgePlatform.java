@@ -1,17 +1,22 @@
 package com.yourname.yourmod.loader.forge;
 
 import com.yourname.yourmod.loader.LoaderExpectPlatform;
+import com.yourname.yourmod.api.datagen.DataGen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
 public final class ForgePlatform implements LoaderExpectPlatform {
 
+    private static final String MOD_ID = "yourmodid";
+
+    // ランタイム機能
     private final Registries registries = new ForgeRegistriesImpl();
     private final Network network = new ForgeNetworkImpl();
     private final Events events = new ForgeEventsImpl();
 
-    private static final String MOD_ID = "yourmodid";
+    // ★ ビルド時機能（DataGen）
+    private final DataGen dataGen = new ForgeDataGenImpl();
 
     @Override
     public ResourceLocation id(String path) {
@@ -36,5 +41,10 @@ public final class ForgePlatform implements LoaderExpectPlatform {
     @Override
     public Events events() {
         return events;
+    }
+
+    @Override
+    public DataGen dataGen() {
+        return dataGen;
     }
 }
