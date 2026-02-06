@@ -2,20 +2,80 @@ package com.yourname.yourmod.loader;
 
 import net.minecraft.resources.ResourceLocation;
 
+/**
+ * Forge / Fabric / NeoForge 差分を吸収するための期待API
+ * 共通コードはこのinterface「だけ」を見る
+ */
 public interface LoaderExpectPlatform {
 
+    /* ------------------------------------------------------------ */
+    /* 基本情報 */
+    /* ------------------------------------------------------------ */
+
+    /**
+     * MOD ID を自動付与した ResourceLocation を生成する
+     */
     ResourceLocation id(String path);
 
-    void registerItem(String name, Object item);
-    void registerBlock(String name, Object block);
-    void registerEntity(String name, Object entity);
-    void registerBlockEntity(String name, Object blockEntity);
+    /**
+     * 現在の実行環境が Client 側かどうか
+     */
+    boolean isClient();
 
-    void initNetwork();
-    void sendToServer(Object packet);
-    void sendToClient(Object player, Object packet);
 
-    void registerEvents();
+    /* ------------------------------------------------------------ */
+    /* Registry */
+    /* ------------------------------------------------------------ */
+
+    Registries registries();
+
+    interface Registries {
+        void item(String name, Object item);
+        void block(String name, Object block);
+        void entity(String name, Object entityType);
+        void blockEntity(String name, Object blockEntityType);
+    }
+
+
+    /* ------------------------------------------------------------ */
+    /* Network */
+    /* ------------------------------------------------------------ */
+
+    Network network();
+
+    interface Network {
+        /**
+         * Packet登録など初期化処理
+         */
+        void register();
+
+        /**
+         * Client → Server
+         */
+        void sendToServer(Object packet);
+
+        /**
+         * Server → Client
+         */
+        void sendToPlayer(Object player, Object packet);
+    }
+
+
+    /* ------------------------------------------------------------ */
+    /* Events */
+    /* ------------------------------------------------------------ */
+
+    Events events();
+
+    interface Events {
+        /**
+         * Event登録の入口
+         */
+        void register();
+
+        /**
+         * プレイヤー参加イベント
+         */
+        void onPlayerJoin(Object player);
+    }
 }
-
-package com.yourname.yourmod.loader;
