@@ -1,4 +1,4 @@
-package com.yourname.yourmod.api.libs.event;
+package com.yourname.yourmod.api.libs;
 
 import com.yourname.yourmod.api.event.ModEvent;
 import com.yourname.yourmod.api.event.EventPriority;
