@@ -78,4 +78,7 @@ public interface LoaderExpectPlatform {
          */
         void onPlayerJoin(Object player);
     }
+    interface DataGen{
+        void datagen();
+    }
 }
