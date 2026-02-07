@@ -10,7 +10,6 @@ public interface LoaderExpectPlatform {
     Registries registries();
     Network network();
     Events events();
-    Client client(); // ★追加
 
     /* ---------------- Registry ---------------- */
 
@@ -34,16 +33,5 @@ public interface LoaderExpectPlatform {
     interface Events {
         void register();
         void onPlayerJoin(Object player);
-    }
-
-    /* ---------------- Client ---------------- */
-
-    interface Client {
-        void init();
-
-        /** Server用 no-op */
-        static Client noop() {
-            return () -> {};
-        }
     }
 }
