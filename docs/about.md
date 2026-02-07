@@ -1,7 +1,7 @@
 # 1. MODの仕組みと作り方
 
 この MOD フレームワークは、
-**「Minecraft MOD を “宣言的に” 書く」**ことを目的として設計されています。
+**「Minecraft MOD を “宣言的に” 書く」** ことを目的として設計されています。
 
 Forge / Fabric の違い、初期化順序、Registry の罠、Client / Server 分離など、
 従来 MOD 開発で毎回悩まされてきた要素を DSL とライフサイクルで吸収し、
@@ -21,16 +21,6 @@ Forge / Fabric の違い、初期化順序、Registry の罠、Client / Server �
         ↓
 [ Loader / Platform層 (Forge / Fabric) ]
 ```
-
-・あなたのMODコード
-・ブロック・アイテム・イベントなどを DSL で宣言する場所
-・基本的に「触るのはここだけ」
-・共通API / DSL層
-・登録処理・初期化順序・Client/Server 分離を管理
-・フレームワークの心臓部
-・Loader / Platform層
-・Forge / Fabric ごとの差分を吸収
-・直接触る必要はほぼない
 
 この分離によって、
 ・Forge / Fabric の違いを意識しない
