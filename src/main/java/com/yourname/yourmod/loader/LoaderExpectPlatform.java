@@ -11,6 +11,7 @@ public interface LoaderExpectPlatform {
     Registries registries();
     Network network();
     Events events();
+    Client client();
 
     interface Registries {
         void item(String name, Object item);
@@ -28,5 +29,9 @@ public interface LoaderExpectPlatform {
     interface Events {
         void register();
         void onPlayerJoin(Object player);
+    }
+
+    interface Client {
+        void init();
     }
 }
