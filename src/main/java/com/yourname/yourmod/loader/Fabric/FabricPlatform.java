@@ -1,6 +1,7 @@
 package com.yourname.yourmod.loader.fabric;
 
 import com.yourname.yourmod.loader.LoaderExpectPlatform;
+import com.yourname.yourmod.loader.LoaderExpectPlatform.Client;
 import com.yourname.yourmod.api.datagen.DataGen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -14,8 +15,12 @@ public final class FabricPlatform implements LoaderExpectPlatform {
     private final Network network = new FabricNetworkImpl();
     private final Events events = new FabricEventsImpl();
 
-    // ★ DataGen
-    private final FabricDataGenImpl dataGen = new FabricDataGenImpl();
+    private final Client client =
+            FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT
+                    ? new FabricClientImpl()
+                    : Client.noop();
+
+    private final DataGen dataGen = new FabricDataGenImpl();
 
     @Override
     public ResourceLocation id(String path) {
@@ -43,14 +48,12 @@ public final class FabricPlatform implements LoaderExpectPlatform {
     }
 
     @Override
-    public DataGen dataGen() {
-        return dataGen;
+    public Client client() {
+        return client;
     }
 
-    /**
-     * Fabric DataGen Entrypoint から呼ばれる
-     */
-    public void setupDataGen(net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator gen) {
-        dataGen.setup(gen);
+    @Override
+    public DataGen dataGen() {
+        return dataGen;
     }
 }
