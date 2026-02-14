@@ -1,7 +1,7 @@
 package com.yourname.yourmod.api.util;
 
 /**
- * MOD ID補助
+ * MOD ID陬懷勧
  */
 public final class IdUtil {
 

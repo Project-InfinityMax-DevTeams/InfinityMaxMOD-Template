@@ -5,6 +5,6 @@ public final class ClientEvents {
     private ClientEvents() {}
 
     public static void register() {
-        // ClientTick / RenderTick / InputEvent をここに集約
+        // ClientTick / RenderTick / InputEvent 繧偵％縺薙↓髮・ｴ・
     }
 }

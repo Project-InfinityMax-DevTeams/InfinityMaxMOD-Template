@@ -1,17 +1,19 @@
+package com.yourname.yourmod.loader;
+
 public final class Platform {
 
-    private static LoaderExpectPlatform INSTANCE;
+    private static LoaderExpectPlatform instance;
 
     private Platform() {}
 
     public static void set(LoaderExpectPlatform platform) {
-        INSTANCE = platform;
+        instance = platform;
     }
 
     public static LoaderExpectPlatform get() {
-        if (INSTANCE == null) {
+        if (instance == null) {
             throw new IllegalStateException("Platform not initialized");
         }
-        return INSTANCE;
+        return instance;
     }
 }

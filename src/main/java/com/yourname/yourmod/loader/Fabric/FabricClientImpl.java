@@ -1,11 +1,9 @@
 package com.yourname.yourmod.loader.fabric;
 
-import com.yourname.yourmod.loader.LoaderExpectPlatform.Client;
-import com.yourname.yourmod.client.ClientEntrypoint;
+import com.yourname.yourmod.api.client.ClientEntrypoint;
 
-public final class FabricClientImpl implements Client {
+public final class FabricClientImpl {
 
-    @Override
     public void init() {
         ClientEntrypoint.init();
     }

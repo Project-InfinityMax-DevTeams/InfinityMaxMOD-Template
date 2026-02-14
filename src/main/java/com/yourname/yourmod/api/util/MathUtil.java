@@ -1,7 +1,7 @@
 package com.yourname.yourmod.api.util;
 
 /**
- * 数学系ユーティリティ
+ * 謨ｰ蟄ｦ邉ｻ繝ｦ繝ｼ繝・ぅ繝ｪ繝・ぅ
  */
 public final class MathUtil {
 

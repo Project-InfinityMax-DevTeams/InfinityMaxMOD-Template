@@ -2,20 +2,27 @@ package com.yourname.yourmod.api.libs.internal;
 
 public final class ClientBuilder {
 
-    private final RenderDSL render = new RenderDSL();
-    private final KeybindDSL keybind = new KeybindDSL();
-    private final ScreenDSL screen = new ScreenDSL();
-    private final HudDSL hud = new HudDSL();
-
-    public RenderDSL renders() { return render; }
-    public KeybindDSL keybinds() { return keybind; }
-    public ScreenDSL screens() { return screen; }
-    public HudDSL hud() { return hud; }
+    public RenderDSL renders() { return new RenderDSL(); }
+    public KeybindDSL keybinds() { return new KeybindDSL(); }
+    public ScreenDSL screens() { return new ScreenDSL(); }
+    public HudDSL hud() { return new HudDSL(); }
 
     public void registerAll() {
-        render.registerAll();
-        keybind.registerAll();
-        screen.registerAll();
-        hud.registerAll();
+    }
+
+    public static final class RenderDSL {
+        public void registerAll() {}
+    }
+
+    public static final class KeybindDSL {
+        public void registerAll() {}
+    }
+
+    public static final class ScreenDSL {
+        public void registerAll() {}
+    }
+
+    public static final class HudDSL {
+        public void registerAll() {}
     }
 }

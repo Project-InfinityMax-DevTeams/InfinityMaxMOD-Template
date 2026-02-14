@@ -1,11 +1,9 @@
 package com.yourname.yourmod.loader.forge;
 
-import com.yourname.yourmod.loader.LoaderExpectPlatform.Client;
-import com.yourname.yourmod.client.ClientEntrypoint;
+import com.yourname.yourmod.api.client.ClientEntrypoint;
 
-public final class ForgeClientImpl implements Client {
+public final class ForgeClientImpl {
 
-    @Override
     public void init() {
         ClientEntrypoint.init();
     }

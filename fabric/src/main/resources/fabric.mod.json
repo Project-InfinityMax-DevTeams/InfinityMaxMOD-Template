@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "yourmod",
+  "version": "0.1.0",
+  "name": "Your Mod Name",
+  "description": "A very strong multi-loader Minecraft mod.",
+  "authors": [
+    "YourName"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+    ],
+    "client": [
+    ]
+  },
+  "mixins": [
+  ]
+}

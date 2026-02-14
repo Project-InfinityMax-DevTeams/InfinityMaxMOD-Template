@@ -30,7 +30,7 @@ public final class ModEventBus {
                 .computeIfAbsent(type, k -> new ArrayList<>())
                 .add(new EventListener<>(consumer, priority, async));
 
-        // priority順にソート
+        // priority鬆・↓繧ｽ繝ｼ繝・
         LISTENERS.get(type).sort(
                 Comparator.comparingInt(l -> -l.priority.level)
         );

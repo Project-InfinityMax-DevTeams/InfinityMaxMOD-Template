@@ -1,3 +1,5 @@
 package com.yourname.yourmod.api.event;
 
-public interface ModEvent {}
+public final class ModEvents {
+    private ModEvents() {}
+}

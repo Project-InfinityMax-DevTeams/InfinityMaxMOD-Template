@@ -4,12 +4,11 @@ import com.yourname.yourmod.YourMod;
 import com.yourname.yourmod.loader.Platform;
 import net.fabricmc.api.ModInitializer;
 
-public class FabricEntrypoint implements ModInitializer {
+public final class FabricEntrypoint implements ModInitializer {
 
     @Override
     public void onInitialize() {
         Platform.set(new FabricPlatform());
-
         Platform.get().network().register();
         Platform.get().events().register();
         YourMod.init();

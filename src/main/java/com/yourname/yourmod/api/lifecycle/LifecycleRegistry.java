@@ -3,7 +3,7 @@ package com.yourname.yourmod.api.lifecycle;
 import java.util.*;
 
 /**
- * MOD ライフサイクル処理の登録管理
+ * MOD 繝ｩ繧､繝輔し繧､繧ｯ繝ｫ蜃ｦ逅・・逋ｻ骭ｲ邂｡逅・
  */
 public final class LifecycleRegistry {
 
@@ -17,12 +17,12 @@ public final class LifecycleRegistry {
 
     private LifecycleRegistry() {}
 
-    /** ライフサイクル処理を登録 */
+    /** 繝ｩ繧､繝輔し繧､繧ｯ繝ｫ蜃ｦ逅・ｒ逋ｻ骭ｲ */
     public static void register(ModLifecycle stage, LifecycleHook hook) {
         HOOKS.get(stage).add(hook);
     }
 
-    /** Loader 側から呼ばれる実行ポイント */
+    /** Loader 蛛ｴ縺九ｉ蜻ｼ縺ｰ繧後ｋ螳溯｡後・繧､繝ｳ繝・*/
     public static void fire(ModLifecycle stage) {
         for (LifecycleHook hook : HOOKS.get(stage)) {
             hook.run();

@@ -5,6 +5,6 @@ public final class ClientScreens {
     private ClientScreens() {}
 
     public static void register() {
-        // MenuType → Screen の紐付け
+        // MenuType 竊・Screen 縺ｮ邏蝉ｻ倥￠
     }
 }

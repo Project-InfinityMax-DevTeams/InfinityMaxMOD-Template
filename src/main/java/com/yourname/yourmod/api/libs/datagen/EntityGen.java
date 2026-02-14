@@ -1,9 +1,13 @@
+package com.yourname.yourmod.api.libs.datagen;
+
+import com.yourname.yourmod.api.platform.PlatformDataGen;
+
 public final class EntityGen extends BaseGen<EntityGen> {
 
     private Loot loot;
     private String lang;
 
-    EntityGen(String id) {
+    public EntityGen(String id) {
         super(id);
     }
 

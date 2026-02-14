@@ -1,15 +1,13 @@
 package com.yourname.yourmod.api.libs.packet;
 
 import com.yourname.yourmod.loader.Platform;
-import net.minecraft.network.FriendlyByteBuf;
-
 import java.util.function.Function;
 
 public final class Packet<T> {
 
     private final String id;
     private PacketDirection direction;
-    private Function<FriendlyByteBuf, T> decoder;
+    private Function<PacketBuffer, T> decoder;
     private SimplePacket.PacketEncoder<T> encoder;
     private PacketHandler<T> handler;
 
@@ -31,10 +29,7 @@ public final class Packet<T> {
         return this;
     }
 
-    public Packet<T> codec(
-            Function<FriendlyByteBuf, T> decoder,
-            SimplePacket.PacketEncoder<T> encoder
-    ) {
+    public Packet<T> codec(Function<PacketBuffer, T> decoder, SimplePacket.PacketEncoder<T> encoder) {
         this.decoder = decoder;
         this.encoder = encoder;
         return this;
@@ -46,12 +41,8 @@ public final class Packet<T> {
     }
 
     public void register() {
-        PacketRegistry.register(new SimplePacket<>(
-                id, direction, decoder, encoder, handler
-        ));
+        PacketRegistry.register(new SimplePacket<>(id, direction, decoder, encoder, handler));
     }
-
-    /* ------------------ DSL SEND ------------------ */
 
     public void sendToServer(T packet) {
         Platform.get().network().sendToServer(packet);

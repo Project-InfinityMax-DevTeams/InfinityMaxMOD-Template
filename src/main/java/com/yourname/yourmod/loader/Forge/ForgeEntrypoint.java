@@ -5,11 +5,10 @@ import com.yourname.yourmod.loader.Platform;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod("yourmod")
-public class ForgeEntrypoint {
+public final class ForgeEntrypoint {
 
     public ForgeEntrypoint() {
         Platform.set(new ForgePlatform());
-
         Platform.get().network().register();
         Platform.get().events().register();
         YourMod.init();

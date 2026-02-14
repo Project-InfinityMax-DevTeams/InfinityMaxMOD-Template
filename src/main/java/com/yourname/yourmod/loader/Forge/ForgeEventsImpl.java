@@ -1,15 +1,16 @@
 package com.yourname.yourmod.loader.forge;
 
-import com.yourname.yourmod.event.CommonEvents;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+import com.yourname.yourmod.api.event.CommonEvents;
+import com.yourname.yourmod.loader.LoaderExpectPlatform;
 
-public final class ForgeEventsImpl {
+public final class ForgeEventsImpl implements LoaderExpectPlatform.Events {
 
-    public static void register(CommonEvents events) {
-        MinecraftForge.EVENT_BUS.addListener(
-                (PlayerEvent.PlayerLoggedInEvent e) ->
-                        ModEventBus.post(new PlayerJoinEvent(player));
-        );
+    @Override
+    public void register() {
+    }
+
+    @Override
+    public void onPlayerJoin(Object player) {
+        CommonEvents.onPlayerJoin(player);
     }
 }

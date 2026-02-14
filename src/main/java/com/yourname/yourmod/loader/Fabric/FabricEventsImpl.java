@@ -1,14 +1,16 @@
 package com.yourname.yourmod.loader.fabric;
 
-import com.yourname.yourmod.event.CommonEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import com.yourname.yourmod.api.event.CommonEvents;
+import com.yourname.yourmod.loader.LoaderExpectPlatform;
 
-public final class FabricEventsImpl {
+public final class FabricEventsImpl implements LoaderExpectPlatform.Events {
 
-    public static void register(CommonEvents events) {
-        ServerPlayConnectionEvents.JOIN.register(
-                (handler, sender, server) ->
-                        ModEventBus.post(new PlayerJoinEvent(player));
-        );
+    @Override
+    public void register() {
+    }
+
+    @Override
+    public void onPlayerJoin(Object player) {
+        CommonEvents.onPlayerJoin(player);
     }
 }

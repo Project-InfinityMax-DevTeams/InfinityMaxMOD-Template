@@ -1,10 +1,4 @@
-package core.api.platform;
+package com.yourname.yourmod.api.platform;
 
 public interface Platform {
-
-    PlatformDataGen dataGen();
-
-    static Platform get() {
-        return PlatformLoader.INSTANCE;
-    }
 }

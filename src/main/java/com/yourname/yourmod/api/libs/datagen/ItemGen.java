@@ -1,10 +1,16 @@
+package com.yourname.yourmod.api.libs.datagen;
+
+import com.yourname.yourmod.api.platform.PlatformDataGen;
+import java.util.ArrayList;
+import java.util.List;
+
 public final class ItemGen extends BaseGen<ItemGen> {
 
     private Model model;
     private String lang;
     private final List<TagKey<?>> tags = new ArrayList<>();
 
-    ItemGen(String id) {
+    public ItemGen(String id) {
         super(id);
     }
 

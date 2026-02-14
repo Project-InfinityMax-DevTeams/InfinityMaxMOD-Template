@@ -1,10 +1,16 @@
+package com.yourname.yourmod.api.libs.datagen;
+
+import com.yourname.yourmod.api.platform.PlatformDataGen;
+import java.util.ArrayList;
+import java.util.List;
+
 public final class BlockGen extends BaseGen<BlockGen> {
 
     private Model model;
     private Loot loot;
     private final List<TagKey<?>> tags = new ArrayList<>();
 
-    BlockGen(String id) {
+    public BlockGen(String id) {
         super(id);
     }
 

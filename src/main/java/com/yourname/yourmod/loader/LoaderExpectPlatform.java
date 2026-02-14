@@ -1,17 +1,13 @@
 package com.yourname.yourmod.loader;
 
-import net.minecraft.resources.ResourceLocation;
-
 public interface LoaderExpectPlatform {
 
-    ResourceLocation id(String path);
+    String id(String path);
     boolean isClient();
 
     Registries registries();
     Network network();
     Events events();
-
-    /* ---------------- Registry ---------------- */
 
     interface Registries {
         void item(String name, Object item);
@@ -20,15 +16,11 @@ public interface LoaderExpectPlatform {
         void blockEntity(String name, Object blockEntityType);
     }
 
-    /* ---------------- Network ---------------- */
-
     interface Network {
         void register();
         void sendToServer(Object packet);
         void sendToPlayer(Object player, Object packet);
     }
-
-    /* ---------------- Events ---------------- */
 
     interface Events {
         void register();

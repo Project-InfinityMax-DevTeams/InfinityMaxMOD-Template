@@ -1,43 +1,29 @@
 package com.yourname.yourmod.api.libs.internal;
 
 import com.yourname.yourmod.api.libs.ModRegistries;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
-
 import java.util.function.Supplier;
 
-public final class EntityBuilder<T extends Entity> {
+public final class EntityBuilder<T> {
 
     private final String id;
-    private final EntityType.EntityFactory<T> factory;
-    private MobCategory category = MobCategory.MISC;
-    private float width = 0.6f;
-    private float height = 1.8f;
+    private final Supplier<T> factory;
 
-    public EntityBuilder(String id, EntityType.EntityFactory<T> factory) {
+    public EntityBuilder(String id, Supplier<T> factory) {
         this.id = id;
         this.factory = factory;
     }
 
-    public EntityBuilder<T> category(MobCategory category) {
-        this.category = category;
+    public EntityBuilder<T> category(Object category) {
         return this;
     }
 
     public EntityBuilder<T> size(float width, float height) {
-        this.width = width;
-        this.height = height;
         return this;
     }
 
-    public EntityType<T> build() {
-        EntityType<T> type = EntityType.Builder
-                .of(factory, category)
-                .sized(width, height)
-                .build(id);
-
-        ModRegistries.registerEntity(id, type);
-        return type;
+    public T build() {
+        T entity = factory.get();
+        ModRegistries.registerEntity(id, entity);
+        return entity;
     }
 }

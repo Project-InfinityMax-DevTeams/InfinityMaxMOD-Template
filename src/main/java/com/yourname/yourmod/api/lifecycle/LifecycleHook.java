@@ -1,7 +1,7 @@
 package com.yourname.yourmod.api.lifecycle;
 
 /**
- * ライフサイクルごとの処理フック
+ * 繝ｩ繧､繝輔し繧､繧ｯ繝ｫ縺斐→縺ｮ蜃ｦ逅・ヵ繝・け
  */
 @FunctionalInterface
 public interface LifecycleHook {

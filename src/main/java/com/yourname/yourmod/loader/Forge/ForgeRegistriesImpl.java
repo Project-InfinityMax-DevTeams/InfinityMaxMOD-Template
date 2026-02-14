@@ -1,22 +1,33 @@
 package com.yourname.yourmod.loader.forge;
 
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import com.yourname.yourmod.loader.LoaderExpectPlatform;
+import java.util.HashMap;
+import java.util.Map;
 
-public final class ForgeRegistriesImpl {
+public final class ForgeRegistriesImpl implements LoaderExpectPlatform.Registries {
 
-    private ForgeRegistriesImpl() {}
+    private final Map<String, Object> items = new HashMap<>();
+    private final Map<String, Object> blocks = new HashMap<>();
+    private final Map<String, Object> entities = new HashMap<>();
+    private final Map<String, Object> blockEntities = new HashMap<>();
 
-    public static void registerItem(String name, Object item) {
-        // 実装簡略化（完全版は後で DeferredRegister 化）
+    @Override
+    public void item(String name, Object item) {
+        items.put(name, item);
     }
 
-    public static void registerBlock(String name, Object block) {
+    @Override
+    public void block(String name, Object block) {
+        blocks.put(name, block);
     }
 
-    public static void registerEntity(String name, Object entity) {
+    @Override
+    public void entity(String name, Object entityType) {
+        entities.put(name, entityType);
     }
 
-    public static void registerBlockEntity(String name, Object blockEntity) {
+    @Override
+    public void blockEntity(String name, Object blockEntityType) {
+        blockEntities.put(name, blockEntityType);
     }
 }

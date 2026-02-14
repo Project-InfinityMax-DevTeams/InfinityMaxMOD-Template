@@ -1,21 +1,20 @@
 package com.yourname.yourmod.api.libs;
 
 import com.yourname.yourmod.loader.Platform;
-import net.minecraft.server.level.ServerPlayer;
 
 public final class ModNetwork {
 
     private ModNetwork() {}
 
     public static void init() {
-        Platform.get().initNetwork();
+        Platform.get().network().register();
     }
 
     public static void sendToServer(Object packet) {
-        Platform.get().sendToServer(packet);
+        Platform.get().network().sendToServer(packet);
     }
 
-    public static void sendToClient(ServerPlayer player, Object packet) {
-        Platform.get().sendToClient(player, packet);
+    public static void sendToClient(Object player, Object packet) {
+        Platform.get().network().sendToPlayer(player, packet);
     }
 }

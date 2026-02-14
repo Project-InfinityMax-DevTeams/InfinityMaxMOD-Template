@@ -1,23 +1,23 @@
 package com.yourname.yourmod.api.lifecycle;
 
 /**
- * MOD 全体の初期化ライフサイクル定義
- * すべての処理は必ずどれかの段階に属する
+ * MOD 蜈ｨ菴薙・蛻晄悄蛹悶Λ繧､繝輔し繧､繧ｯ繝ｫ螳夂ｾｩ
+ * 縺吶∋縺ｦ縺ｮ蜃ｦ逅・・蠢・★縺ｩ繧後°縺ｮ谿ｵ髫弱↓螻槭☆繧・
  */
 public enum ModLifecycle {
 
-    /** クラスロード直後・定数初期化のみ */
+    /** 繧ｯ繝ｩ繧ｹ繝ｭ繝ｼ繝臥峩蠕後・螳壽焚蛻晄悄蛹悶・縺ｿ */
     CONSTRUCT,
 
-    /** Forge / Fabric 共通の初期化 */
+    /** Forge / Fabric 蜈ｱ騾壹・蛻晄悄蛹・*/
     COMMON_INIT,
 
-    /** クライアント専用初期化（Render / Screen / HUD 等） */
+    /** 繧ｯ繝ｩ繧､繧｢繝ｳ繝亥ｰら畑蛻晄悄蛹厄ｼ・ender / Screen / HUD 遲会ｼ・*/
     CLIENT_INIT,
 
-    /** サーバー専用初期化 */
+    /** 繧ｵ繝ｼ繝舌・蟆ら畑蛻晄悄蛹・*/
     SERVER_INIT,
 
-    /** DataGenerator 実行時 */
+    /** DataGenerator 螳溯｡梧凾 */
     DATAGEN
 }

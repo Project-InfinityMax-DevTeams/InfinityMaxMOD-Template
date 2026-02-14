@@ -1,5 +1,6 @@
 package com.yourname.yourmod.api.libs;
 
+import com.yourname.yourmod.api.libs.internal.ClientBuilder;
 import java.util.function.Consumer;
 
 public final class Client {

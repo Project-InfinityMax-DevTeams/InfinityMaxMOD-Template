@@ -1,9 +1,15 @@
+// settings.gradle（ルート）
+// pluginManagement はここに置く（サブプロジェクトには置かない）
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        maven { url = 'https://maven.fabricmc.net/' }
-        maven { url = 'https://maven.minecraftforge.net/' }
+        mavenCentral()
+        maven { url = 'https://maven.fabricmc.net' }
+        maven { url = 'https://maven.minecraftforge.net' }
     }
 }
 
 rootProject.name = "YourModName"
+
+// サブプロジェクトを登録
+include 'forge', 'fabric'

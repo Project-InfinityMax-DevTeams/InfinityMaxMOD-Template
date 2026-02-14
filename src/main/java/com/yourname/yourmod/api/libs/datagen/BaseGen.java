@@ -1,3 +1,5 @@
+package com.yourname.yourmod.api.libs.datagen;
+
 public abstract class BaseGen<T extends BaseGen<T>> {
 
     protected final String id;

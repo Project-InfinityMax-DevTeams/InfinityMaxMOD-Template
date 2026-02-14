@@ -5,7 +5,7 @@ public final class ClientInputs {
     private ClientInputs() {}
 
     public static void register() {
-        // KeyMapping 登録
-        // マウス入力
+        // KeyMapping 逋ｻ骭ｲ
+        // 繝槭え繧ｹ蜈･蜉・
     }
 }

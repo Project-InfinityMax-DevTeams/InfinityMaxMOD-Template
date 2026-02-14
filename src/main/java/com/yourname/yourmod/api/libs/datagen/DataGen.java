@@ -1,9 +1,5 @@
 package com.yourname.yourmod.api.libs.datagen;
 
-import com.yourname.yourmod.api.datagen.BlockGen;
-import com.yourname.yourmod.api.datagen.ItemGen;
-import com.yourname.yourmod.api.datagen.EntityGen;
-
 public final class DataGen {
 
     private DataGen() {}

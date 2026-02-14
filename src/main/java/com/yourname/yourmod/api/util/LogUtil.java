@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * ログ出力統一
+ * 繝ｭ繧ｰ蜃ｺ蜉帷ｵｱ荳
  */
 public final class LogUtil {
 
