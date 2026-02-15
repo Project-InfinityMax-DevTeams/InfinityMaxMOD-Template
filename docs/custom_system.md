@@ -1126,7 +1126,7 @@ public final class XSync {
 ⸻
 
 ## 7. リアルタイムHUD（毎Tick描画）
-```
+```Java
 package com.example.mymod.system.X;
 
 public final class XHudRealtime {
