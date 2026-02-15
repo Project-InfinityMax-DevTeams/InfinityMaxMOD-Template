@@ -1,150 +1,201 @@
 ﻿# Custom System Guide
 
-## Goal
-A custom system is your own gameplay/business module that is independent from loader internals.
-Build systems in common code, then connect them through DSL/events.
+## Purpose
+Custom systems are templates for implementing unique game/business modules independent of the loader's internal structure.
+Build the core system with shared code, connecting components via DSLs and events.
+This guide provides **copy-and-paste code blocks and a reference table** to help developers easily place elements.
 
-Examples:
-- Energy system
-- Skill system
-- Quest system
-- Progression system
+# Registration Systems
 
-## Design policy
-1. Keep system core in pure Java
-2. Keep storage/state structure explicit
-3. Connect system to lifecycle/events through shared DSL
-4. Use loader layer only for platform-specific access
+## 1. Custom Item Generation System
 
-## Recommended structure
-```text
-src/main/java/com/example/mymod/
-  system/
-    energy/
-      EnergySystem.java
-      EnergyState.java
-      EnergyService.java
-      EnergyEvents.java
-      EnergyClient.java
-```
-
-## Step 1: Define core constants
 ```java
-package com.example.mymod.system.energy;
+package com.yourname.yourmod.systems;
 
-public final class EnergySystem {
+import com.yourname.yourmod.api.libs.Registry;
 
-    public static final int MAX_ENERGY = 100000;
+public final class CustomItemSystem {
 
-    private EnergySystem() {}
+    public static void init() {
+        Object item = Registry.item("custom_id")
+                .template(new Object())
+                .stack(stackSize)
+                .durability(durabilityValue)
+                .tab(tabCategory)
+                .build();
+    }
 }
 ```
+| Required field (variable name)     | Information entered into variable | Behavior/processing when specified                    |
+| --------------- | ------- | ------------------------------ - |
+| “custom_id”     | string  | Item is registered with the entered ID. |
+| stackSize       | int     | Maximum stack size for the item |
+| durabilityValue | int     | Item durability          |
+| tabCategory     | Object  | Creative tab the item belongs to       |
 
-## Step 2: Define state model
+---
+
+## 2. Custom Block Generation System
+
 ```java
-package com.example.mymod.system.energy;
+package com.yourname.yourmod.systems;
 
-public final class EnergyState {
+import com.yourname.yourmod.api.libs.Registry;
 
-    private int value;
+public final class CustomBlockSystem {
 
-    public int get() {
-        return value;
-    }
-
-    public void set(int next) {
-        value = Math.max(0, Math.min(next, EnergySystem.MAX_ENERGY));
-    }
-
-    public void add(int delta) {
-        set(value + delta);
+    public static void init() {
+        Object block = Registry.block(“custom_block_id”)
+                .template(blockTemplate)
+                .strength(blockStrength)
+                .noOcclusion(occlusionFlag)
+                .build();
     }
 }
 ```
 
-## Step 3: Define service logic
+| Required Specifier (Variable Name)       | Information Entered into Variable | Behavior/Processing When Specified                  |
+| ----------------- | ------- | ---------------------------- - |
+| “custom_block_id” | string  | Block is registered with the entered ID              |
+| blockTemplate     | Object  | Base template for the block                  |
+| blockStrength     | float   | Block hardness/destruction time                  |
+| occlusionFlag     | boolean | true for non-transparent block, false for transparent block |
+
+---
+
+## 3. Custom Entity Generation System
+
 ```java
-package com.example.mymod.system.energy;
+package com.yourname.yourmod.systems;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.yourname.yourmod.api.libs.Registry;
 
-public final class EnergyService {
+public final class CustomEntitySystem {
 
-    private static final Map<Object, EnergyState> STATE = new ConcurrentHashMap<>();
-
-    private EnergyService() {}
-
-    public static EnergyState byPlayer(Object player) {
-        return STATE.computeIfAbsent(player, key -> new EnergyState());
+    public static void init() {
+        Object entity = Registry.entity(“custom_entity_id”, entityFactory)
+                .category(entityCategory)
+                .size(entityWidth, entityHeight)
+                .build();
     }
 }
 ```
 
-## Step 4: Bind system to shared events
+| Required Specifier (Variable Name)        | Information Entered into Variable     | Behavior/Processing When Specified       |
+| ------------------ | ----------- | ------------------ |
+| “custom_entity_id” | string      | Entity is registered with the provided ID |
+| entityFactory      | Supplier<T> | Entity generation function         |
+| entityCategory     | Object      | Entity category         |
+| entityWidth        | float       | Width                  |
+| entityHeight       | float       | Height                 |
+
+---
+
+## 4. Custom Event Registration System
+
 ```java
-package com.example.mymod.system.energy;
+package com.yourname.yourmod.systems;
 
 import com.yourname.yourmod.api.libs.Events;
+import com.yourname.yourmod.api.event.EventPriority;
 
-public final class EnergyEvents {
+public final class CustomEventSystem {
 
-    private EnergyEvents() {}
-
-    public static void register() {
-        Events.playerJoin().handle(event -> {
-            EnergyState state = EnergyService.byPlayer(event.player);
-            state.set(100);
-        });
+    public static void init() {
+        Events.playerJoin()
+                .priority(eventPriority)
+                .handle(event -> {
+                    // Event processing logic
+                    customLogic.accept(event);
+                });
     }
 }
 ```
 
-## Step 5: Optional client hook
+| Required Specifcation (Variable Name)   | Information Entered into Variable       | Behavior/Processing When Specified  |
+| ------------- | ------------- | ------------- |
+| eventPriority | EventPriority    | Event processing priority    |
+| customLogic   | Consumer<T>     | Event logic to execute       |
+
+## 5. Custom UI/Client Processing System
+
 ```java
-package com.example.mymod.system.energy;
+package com.yourname.yourmod.systems;
 
 import com.yourname.yourmod.api.libs.Client;
 
-public final class EnergyClient {
+public final class CustomClientSystem {
 
-    private EnergyClient() {}
-
-    public static void register() {
+    public static void init() {
         Client.init(client -> {
+            client.renders().registerAll();
+            client.keybinds().registerAll();
+            client.screens().registerAll();
             client.hud().registerAll();
         });
     }
 }
 ```
 
-## Step 6: Wire into mod init
+| Required Specifcation (Variable Name) | Information Entered into Variable | Behavior/Processing When Specified     |
+| ----------- | ------- | ---------------- |
+| (None)        |         | Initializes and registers all sub-DSLs |
+
+---
+
+## 6. Custom Data Generation System
+
 ```java
-package com.example.mymod;
+package com.yourname.yourmod.systems;
 
-import com.example.mymod.system.energy.EnergyEvents;
+import com.yourname.yourmod.api.libs.datagen.DataGen;
 
-public final class MyModInit {
-
-    private MyModInit() {}
+public final class CustomDataGenSystem {
 
     public static void init() {
-        EnergyEvents.register();
+        DataGen.block(“custom_block_id”).end();
+        DataGen.item(“custom_item_id”).lang(itemName).end();
+        DataGen.entity(“custom_entity_id”).lang(entityName).end();
     }
 }
 ```
 
-## Short template for new systems
+| Required Specifcation (Variable Name)        | Information Entered into Variable | Behavior/Processing When Specified   |
+| ------------------ | ------- | -------------- |
+| “custom_block_id”  | string  | Block ID for Data Generation   |
+| “custom_item_id”   | string  | Item ID for data generation   |
+| itemName           | string  | Item name          |
+| “custom_entity_id” | string  | Entity ID for data generation |
+| entityName         | string  | Entity name        |
+
+---
+
+## 7. Custom Network Packet System
+
 ```java
-public final class XSystem {
+package com.yourname.yourmod.systems;
+
+import com.yourname.yourmod.api.libs.packet.Packet;
+
+public final class CustomPacketSystem {
+
     public static void init() {
-        Events.playerJoin().handle(event -> {
-            Object player = event.player;
-            // initialize state here
-        });
+        Packet<String> ping = Packet.<String>define(“ping”)
+                .serverbound()
+                .codec(buf -> “ping”, (packet, buf) -> {})
+                .handle((packet, ctx) -> customLogic.accept(packet));
+
+        ping.register();
+        ping.sendToServer(“hello”);
     }
 }
 ```
+
+| Required Specifcation (Variable Name) | Information Entered into Variable       | Behavior/Processing When Specified |
+| ----------- | ------------- | ------------ |
+| “ping”      | string        | Packet ID       |
+| customLogic | PacketHandler | Processing when packet is received   |
+
 
 ## Do / Don't
 Do:
