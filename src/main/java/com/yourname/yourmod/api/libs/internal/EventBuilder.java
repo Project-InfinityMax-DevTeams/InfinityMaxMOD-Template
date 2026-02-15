@@ -4,7 +4,7 @@ import com.yourname.yourmod.api.event.*;
 import java.util.function.Consumer;
 
 /**
- * fluent蠖｢蠑上〒繧､繝吶Φ繝郁ｨｭ螳壹ｒ陦後≧DSL
+ * Event DSL ビルダー
  */
 public final class EventBuilder<T extends ModEvent> {
 
@@ -17,33 +17,25 @@ public final class EventBuilder<T extends ModEvent> {
         this.eventClass = eventClass;
     }
 
-    /**
-     * 蜆ｪ蜈亥ｺｦ險ｭ螳・
-     */
+    /** イベント優先度を設定 */
     public EventBuilder<T> priority(EventPriority priority) {
         this.priority = priority;
         return this;
     }
 
-    /**
-     * 髱槫酔譛溷ｮ溯｡・
-     */
+    /** 非同期でイベントを処理 */
     public EventBuilder<T> async() {
         this.async = true;
         return this;
     }
 
-    /**
-     * 蜷梧悄螳溯｡鯉ｼ域・遉ｺ・・
-     */
+    /** 同期でイベントを処理 */
     public EventBuilder<T> sync() {
         this.async = false;
         return this;
     }
 
-    /**
-     * 繧､繝吶Φ繝亥・逅・匳骭ｲ・域怙邨ら｢ｺ螳夲ｼ・
-     */
+    /** イベントハンドラーを登録 */
     public void handle(Consumer<T> consumer) {
         ModEventBus.listen(eventClass, consumer, priority, async);
     }

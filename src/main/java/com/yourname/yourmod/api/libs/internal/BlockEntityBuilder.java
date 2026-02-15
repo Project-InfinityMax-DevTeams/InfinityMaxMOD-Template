@@ -7,6 +7,7 @@ public final class BlockEntityBuilder<T> {
 
     private final String id;
     private final Supplier<T> factory;
+    private Object[] blocks = new Object[0];
 
     public BlockEntityBuilder(String id, Supplier<T> factory) {
         this.id = id;
@@ -14,12 +15,13 @@ public final class BlockEntityBuilder<T> {
     }
 
     public BlockEntityBuilder<T> blocks(Object... blocks) {
+        this.blocks = blocks;
         return this;
     }
 
     public T build() {
         T blockEntity = factory.get();
-        ModRegistries.registerBlockEntity(id, blockEntity);
+        ModRegistries.registerBlockEntity(id, blockEntity, blocks);
         return blockEntity;
     }
 }

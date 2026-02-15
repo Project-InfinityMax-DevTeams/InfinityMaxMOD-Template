@@ -3,6 +3,9 @@ package com.yourname.yourmod.api.libs.packet;
 import com.yourname.yourmod.loader.Platform;
 import java.util.function.Function;
 
+/**
+ * サーバー/クライアント間パケット送受信のDSL
+ */
 public final class Packet<T> {
 
     private final String id;

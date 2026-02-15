@@ -227,7 +227,7 @@ Registry.block(id)
     .template(Object)
     .strength(float)
     .noOcclusion()
-    .build()
+    .build();
 ```
  要素          | 必須 | 説明             | 指定しない場合             
  ----------- | -- | -------------- | ------------------- 
@@ -253,7 +253,7 @@ Registry.item(id)
         .stack(int)
         .tab(Object)
         .durability(int)
-        .build()
+        .build();
 
 ```
 | 要素         | 必須 | 説明                 | 指定しない場合             |
@@ -282,7 +282,7 @@ Object item = Registry.item("sample_item")
 Registry.entity(id, Supplier<T>)
         .category(Object)
         .size(float width, float height)
-        .build()
+        .build();
 ```
 
 | 要素          | 必須 | 説明                               | 指定しない場合    |
@@ -302,9 +302,17 @@ Object entity = Registry.entity("sample_entity", Object::new)
 ```
 
 ### BlockEntityBuilder
-メソッド:
-- `blocks(Object... blocks)`
-- `build()` -> `T`
+構文:
+```java
+Registry.blockEntity(id,Supplier<T>)
+        .blocks(object...)
+        .build();
+```
+| 要素          | 必須 | 説明                   | 指定しない場合    |
+| ----------- | -- | -------------------- | ---------- |
+| id          | 必須 | ブロックエンティティ登録ID       | ビルド不可      |
+| Supplier<T> | 必須 | ブロックエンティティ生成ファクトリ    | ビルド不可      |
+| blocks      | 任意 | このブロックエンティティに紐づくブロック | 空配列（紐付けなし） |
 
 ショートテンプレ:
 ```java
@@ -317,15 +325,19 @@ Object blockEntity = Registry.blockEntity("sample_be", Object::new)
 入口:
 - `com.yourname.yourmod.api.libs.Events`
 
-利用可能メソッド:
-- `Events.on(Class<T>)`
-- `Events.playerJoin()`
-
-ビルダーメソッド:
-- `priority(EventPriority)`
-- `async()`
-- `sync()`
-- `handle(Consumer<T>)`
+構文:
+```java
+Events.on(Class<T>)
+      .priority(EventPriority)
+      .async() / .sync()
+      .handle(Consumer<T>)
+```
+| 要素               | 必須 | 説明           | 指定しない場合   |
+| ---------------- | -- | ------------ | --------- |
+| Class<T>         | 必須 | 対象のイベントクラス   | ビルド不可     |
+| priority         | 任意 | イベント実行の優先度   | NORMAL    |
+| async / sync     | 任意 | 非同期/同期での処理選択 | 同期 (sync) |
+| handle(Consumer) | 必須 | イベント受信時の処理   | ビルド不可     |
 
 ショートテンプレ:
 ```java
@@ -341,16 +353,7 @@ Events.playerJoin()
 入口:
 - `com.yourname.yourmod.api.libs.Client`
 
-ビルダー:
-- `renders()` -> `RenderDSL`
-- `keybinds()` -> `KeybindDSL`
-- `screens()` -> `ScreenDSL`
-- `hud()` -> `HudDSL`
-
-各サブDSLの現行メソッド:
-- `registerAll()`
-
-ショートテンプレ:
+テンプレ:
 ```java
 Client.init(client -> {
     client.renders().registerAll();
@@ -360,6 +363,15 @@ Client.init(client -> {
 });
 ```
 
+| 要素                   | 必須 | 説明                            | 指定しない場合                |
+| -------------------- | -- | ----------------------------- | ---------------------- |
+| Client.init(builder) | 必須 | ClientDSL の初期化。ラムダでサブDSLにアクセス | ビルド不可                  |
+| renders()            | 任意 | レンダー関連登録                      | 呼ばない場合、レンダー登録なし        |
+| keybinds()           | 任意 | キーバインド登録                      | 呼ばない場合、キー登録なし          |
+| screens()            | 任意 | GUIスクリーン登録                    | 呼ばない場合、スクリーン登録なし       |
+| hud()                | 任意 | HUD表示登録                       | 呼ばない場合、HUD登録なし         |
+| registerAll()        | 任意 | まとめてサブDSLを登録                  | 呼ばない場合、各DSLで個別登録する必要あり |
+
 補足:
 - `Client.init(...)` 内で `builder.registerAll()` は自動実行されます。
 
@@ -367,13 +379,20 @@ Client.init(client -> {
 入口:
 - `com.yourname.yourmod.api.libs.datagen.DataGen`
 
-利用可能メソッド:
-- `DataGen.block(String)` -> `BlockGen`
-- `DataGen.item(String)` -> `ItemGen`
-- `DataGen.entity(String)` -> `EntityGen`
+構文:
+```java
+DataGen.block(StringID).end();
+DataGen.item(StringID).lang("English Name Here").end();
+DataGen.entity(StringID).lang("English Name Here").end();
+```
 
-共通確定メソッド:
-- `end()`
+| 要素                | 必須 | 説明                      | 指定しない場合     |
+| ----------------- | -- | ----------------------- | ----------- |
+| block(String id)  | 必須 | ブロック用データを生成するエントリポイント   | ビルド不可       |
+| item(String id)   | 必須 | アイテム用データを生成するエントリポイント   | ビルド不可       |
+| entity(String id) | 必須 | エンティティ用データを生成するエントリポイント | ビルド不可       |
+| lang(String name) | 任意 | 表示名や言語データを設定            | デフォルト名なし    |
+| end()             | 任意 | データ生成の確定処理              | 呼ばないと登録されない |
 
 ショートテンプレ:
 ```java
@@ -386,16 +405,7 @@ DataGen.entity("sample_entity").lang("Sample Entity").end();
 入口:
 - `com.yourname.yourmod.api.libs.packet.Packet`
 
-主要メソッド:
-- `Packet.define(String id)`
-- `serverbound()` / `clientbound()`
-- `codec(...)`
-- `handle(...)`
-- `register()`
-- `sendToServer(T)`
-- `sendToPlayer(Object, T)`
-
-ショートテンプレ:
+テンプレ:
 ```java
 Packet<String> ping = Packet.<String>define("ping")
         .serverbound()
@@ -405,6 +415,16 @@ Packet<String> ping = Packet.<String>define("ping")
 ping.register();
 ping.sendToServer("hello");
 ```
+
+| 要素                            | 必須 | 説明                   | 指定しない場合    |
+| ----------------------------- | -- | -------------------- | ---------- |
+| define(String id)             | 必須 | パケットIDを指定            | ビルド不可      |
+| serverbound() / clientbound() | 必須 | パケットの送受信方向を指定        | ビルド不可      |
+| codec(decoder, encoder)       | 必須 | パケットのデコード/エンコード方法を指定 | ビルド不可      |
+| handle(PacketHandler)         | 任意 | 受信時の処理を指定            | 無処理になる     |
+| register()                    | 必須 | パケットを登録              | パケット送受信不可  |
+| sendToServer(T)               | 任意 | サーバー送信を行う            | 呼ばなければ送信なし |
+| sendToPlayer(Object, T)       | 任意 | 特定プレイヤーに送信           | 呼ばなければ送信なし |
 
 ## 6. 共通イベント補助
 `CommonEvents.onPlayerJoin(Object player)` は `PlayerJoinEvent` を `ModEventBus` に投稿します。
