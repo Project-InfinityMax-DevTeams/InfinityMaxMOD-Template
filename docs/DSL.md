@@ -23,12 +23,12 @@ Registry.block(id)
     .noOcclusion()
     .build()
 ```
-| Element          | Required | Description             | Default Value             |
-| ----------- | -- | --------- ----- | ------------------- |
-| id          | Required | Block registration ID       | Compilation error             |
-| template    | Optional | Base block object            | new Object() is created            |
-| strength    | Optional | Block hardness             | Default value used             |
-| noOcclusion | Optional | Setting to allow light pass-through       | false               |
+ Element          | Required | Description             | Default Value             
+ ----------- | -- | --------- ----- | ------------------- 
+ id          | Required | Block registration ID       | Compilation error             
+ template    | Optional | Base block object            | new Object() is created            
+ strength    | Optional | Block hardness             | Default value used             
+ noOcclusion | Optional | Setting to allow light pass-through       | false               
 
 Short Template:
 ```java
@@ -206,12 +206,12 @@ Registry.block(id)
     .noOcclusion()
     .build()
 ```
-| 要素          | 必須 | 説明             | 指定しない場合             |
-| ----------- | -- | -------------- | ------------------- |
-| id          | 必須 | ブロック登録ID       | コンパイル不可             |
-| template    | 任意 | 元となるブロックオブジェクト | new Object() が生成される |
-| strength    | 任意 | ブロックの硬さ        | デフォルト値使用            |
-| noOcclusion | 任意 | 光を遮らない設定       | false               |
+ 要素          | 必須 | 説明             | 指定しない場合             
+ ----------- | -- | -------------- | ------------------- 
+ id          | 必須 | ブロック登録ID       | コンパイル不可             
+ template    | 任意 | 元となるブロックオブジェクト | new Object() が生成される 
+ strength    | 任意 | ブロックの硬さ        | デフォルト値使用            
+ noOcclusion | 任意 | 光を遮らない設定       | false               
 
 ショートテンプレ:
 ```java
