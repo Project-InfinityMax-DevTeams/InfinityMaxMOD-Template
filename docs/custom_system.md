@@ -641,7 +641,7 @@ public final class XSystem {
 | ----------- | ------- | ------------ | ---- |
 | （なし）        |         | イベント接続のみ     | 最小構成 |
 
-# XSystem 上級処理テンプレート集
+# 上級処理系
 
 ## 1. プレイヤー単位の状態操作系
 
@@ -860,7 +860,7 @@ public final class XSystemAdvanced {
 | player            | Object   | 対象プレイヤー | Registry紐付け      |
 
 ⸻
-# 最上級層
+# 最上級系
 ## 1. 状態管理（拡張版・時間対応）
 ```Java
 package com.example.mymod.system.X;
@@ -934,7 +934,6 @@ public class XState {
     }
 }
 ```
-引数表
 
 指定必須箇所|型|内容|Note|
 |---|---|---|---|
