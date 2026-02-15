@@ -14,16 +14,25 @@ Available methods:
 - `Registry.entity(String id, Supplier<T> factory)` -> `EntityBuilder<T>`
 - `Registry.blockEntity(String id, Supplier<T> factory)` -> `BlockEntityBuilder<T>`
 
-### BlockBuilder
-Methods:
-- `template(Object)`
-- `strength(float)`
-- `noOcclusion()`
-- `build()` -> `Object`
-
-Short template:
+BlockBuilder
+Syntax:
 ```java
-Object block = Registry.block("sample_block")
+Registry.block(id)
+    .template(Object)
+    .strength(float)
+    .noOcclusion()
+    .build()
+```
+| Element          | Required | Description             | Default Value             |
+| ----------- | -- | --------- ----- | ------------------- |
+| id          | Required | Block registration ID       | Compilation error             |
+| template    | Optional | Base block object            | new Object() is created            |
+| strength    | Optional | Block hardness             | Default value used             |
+| noOcclusion | Optional | Setting to allow light pass-through       | false               |
+
+Short Template:
+```java
+BlockHandle block = Registry.block(“sample_block”)
         .template(new Object())
         .strength(3.0f)
         .noOcclusion()
@@ -179,7 +188,7 @@ Use this path for shared event behavior.
 すべてのサンプルコードは現在のAPIシグネチャに合わせています。
 
 ## 1. Registry DSL
-入口:
+インポート入口:
 - `com.yourname.yourmod.api.libs.Registry`
 
 利用可能メソッド:
@@ -189,15 +198,24 @@ Use this path for shared event behavior.
 - `Registry.blockEntity(String id, Supplier<T> factory)` -> `BlockEntityBuilder<T>`
 
 ### BlockBuilder
-メソッド:
-- `template(Object)`
-- `strength(float)`
-- `noOcclusion()`
-- `build()` -> `Object`
+構文:
+```java
+Registry.block(id)
+    .template(Object)
+    .strength(float)
+    .noOcclusion()
+    .build()
+```
+| 要素          | 必須 | 説明             | 指定しない場合             |
+| ----------- | -- | -------------- | ------------------- |
+| id          | 必須 | ブロック登録ID       | コンパイル不可             |
+| template    | 任意 | 元となるブロックオブジェクト | new Object() が生成される |
+| strength    | 任意 | ブロックの硬さ        | デフォルト値使用            |
+| noOcclusion | 任意 | 光を遮らない設定       | false               |
 
 ショートテンプレ:
 ```java
-Object block = Registry.block("sample_block")
+BlockHandle block = Registry.block("sample_block")
         .template(new Object())
         .strength(3.0f)
         .noOcclusion()
