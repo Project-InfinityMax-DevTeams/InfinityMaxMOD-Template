@@ -316,7 +316,295 @@ Build packet data from state (`energy`, `level`, `unlocked`) and send to the tar
 ## 7. Real-time HUD (every tick)
 Render an always-updated string from current state, for example energy, level, and kill counter.
 
-## Do / Don't
+> Goal: let users build core MOD logic by replacing placeholders, like editing JSON values.
+
+## 1. Constants and Registry IDs
+```java
+package com.yourname.yourmod.systems.core;
+
+public final class XSystemConstants {
+    public static final int MAX_ENERGY = <max_energy>;
+    public static final int MIN_ENERGY = <min_energy>;
+
+    public static final String ENERGY_ITEM_ID = "<energy_item_id>";
+    public static final String LEVEL_ITEM_ID  = "<level_item_id>";
+
+    private XSystemConstants() {}
+}
+```
+
+| Placeholder | Type | What to set | Result |
+| --- | --- | --- | --- |
+| `<max_energy>` | int | Maximum allowed energy | Used by clamps/limits |
+| `<min_energy>` | int | Minimum allowed energy | Usually `0` |
+| `<energy_item_id>` | string | Item ID for energy-related content | Links constants to registry |
+| `<level_item_id>` | string | Item ID for level-related content | Links constants to registry |
+
+---
+
+## 2. Player State Model
+```java
+package com.yourname.yourmod.systems.core;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public final class XState {
+    private int energy;
+    private int level;
+    private boolean unlocked;
+    private final Map<String, Integer> counters = new HashMap<>();
+
+    public int getEnergy() { return energy; }
+    public void setEnergy(int value) {
+        energy = Math.max(XSystemConstants.MIN_ENERGY, Math.min(value, XSystemConstants.MAX_ENERGY));
+    }
+
+    public int getLevel() { return level; }
+    public void setLevel(int value) { level = Math.max(0, value); }
+
+    public boolean isUnlocked() { return unlocked; }
+    public void setUnlocked(boolean value) { unlocked = value; }
+
+    public int getCounter(String key) { return counters.getOrDefault(key, 0); }
+    public void addCounter(String key, int amount) { counters.put(key, getCounter(key) + amount); }
+}
+```
+
+| Placeholder | Type | What to set | Result |
+| --- | --- | --- | --- |
+| `"key"` in `getCounter/addCounter` | string | Counter key like `"kills"` | Tracks any custom stat |
+| `amount` | int | Counter increment/decrement | Changes key value |
+
+---
+
+## 3. State Service (per-player access)
+```java
+package com.yourname.yourmod.systems.core;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+public final class XService {
+    private static final Map<Object, XState> STATES = new ConcurrentHashMap<>();
+    private XService() {}
+
+    public static XState byPlayer(Object player) {
+        return STATES.computeIfAbsent(player, p -> new XState());
+    }
+
+    public static void clear(Object player) {
+        STATES.remove(player);
+    }
+}
+```
+
+| Placeholder | Type | What to set | Result |
+| --- | --- | --- | --- |
+| `player` | Object | Player object from event/context | Retrieves/creates state |
+
+---
+
+## 4. Server Events (join, tick, custom)
+```java
+package com.yourname.yourmod.systems.core;
+
+import com.yourname.yourmod.api.libs.Events;
+
+public final class XEvents {
+    private XEvents() {}
+
+    public static void register() {
+        Events.playerJoin().handle(event -> {
+            Object player = event.player;
+            XState state = XService.byPlayer(player);
+            state.setEnergy(<join_energy>);
+            state.setLevel(<join_level>);
+            state.setUnlocked(<join_unlocked>);
+        });
+
+        Events.serverTick().handle(event -> {
+            if (event.currentTick % <recovery_interval_tick> == 0) {
+                for (Object player : <online_players_supplier>.get()) {
+                    XService.byPlayer(player).setEnergy(XService.byPlayer(player).getEnergy() + <recovery_amount>);
+                }
+            }
+        });
+
+        Events.on(<custom_event_class>.class).handle(event -> {
+            Object player = event.player;
+            XService.byPlayer(player).addCounter("<counter_key>", <counter_add>);
+        });
+    }
+}
+```
+
+| Placeholder | Type | What to set | Result |
+| --- | --- | --- | --- |
+| `<join_energy>` | int | Initial energy on join | Player default state |
+| `<join_level>` | int | Initial level | Player default level |
+| `<join_unlocked>` | boolean | `true` / `false` | Initial feature lock |
+| `<recovery_interval_tick>` | int | Tick interval (20 = 1s) | Periodic execution timing |
+| `<online_players_supplier>` | Supplier<Iterable<Object>> | Function returning online players | Tick loop target |
+| `<recovery_amount>` | int | Energy recovered per interval | Auto-regeneration amount |
+| `<custom_event_class>` | Class<?> | Your custom event type | Hooks your event |
+| `<counter_key>` | string | Counter key name | Target counter |
+| `<counter_add>` | int | Add value | Counter increment |
+
+---
+
+## 5. Client HUD and Screen Registration
+```java
+package com.yourname.yourmod.systems.client;
+
+import com.yourname.yourmod.api.libs.Client;
+
+public final class XClient {
+    private XClient() {}
+
+    public static void register() {
+        Client.init(client -> {
+            client.hud().registerAll();
+            client.screens().registerAll();
+            client.keybinds().registerAll();
+        });
+    }
+
+    public static String hudText(Object player) {
+        XState state = XService.byPlayer(player);
+        return "Energy=" + state.getEnergy() + " Level=" + state.getLevel();
+    }
+}
+```
+
+| Placeholder | Type | What to set | Result |
+| --- | --- | --- | --- |
+| `player` in `hudText` | Object | Local player object | Reads state for HUD text |
+
+---
+
+## 6. Network Sync Template
+```java
+package com.yourname.yourmod.systems.net;
+
+import com.yourname.yourmod.api.libs.packet.Packet;
+
+public final class XSync {
+    private static final Packet<String> STATE_SYNC = Packet.<String>define("<sync_packet_id>")
+            .clientbound()
+            .codec(buf -> "", (packet, buf) -> {})
+            .handle((packet, ctx) -> <client_sync_handler>.accept(packet));
+
+    private XSync() {}
+
+    public static void register() {
+        STATE_SYNC.register();
+    }
+
+    public static void sync(Object player, XState state) {
+        <send_to_player>.accept(player, "energy=" + state.getEnergy() + ",level=" + state.getLevel());
+    }
+}
+```
+
+| Placeholder | Type | What to set | Result |
+| --- | --- | --- | --- |
+| `<sync_packet_id>` | string | Packet ID for state sync | Network channel ID |
+| `<client_sync_handler>` | Consumer<String> | Client-side apply logic | Updates client state |
+| `<send_to_player>` | BiConsumer<Object, String> | Packet send implementation | Sends payload to player |
+
+---
+
+## 7. Save/Load (persistent data template)
+```java
+package com.yourname.yourmod.systems.persistence;
+
+public final class XPersistence {
+    private XPersistence() {}
+
+    public static void save(Object player, XState state) {
+        <save_int>.accept(player, "energy", state.getEnergy());
+        <save_int>.accept(player, "level", state.getLevel());
+        <save_bool>.accept(player, "unlocked", state.isUnlocked());
+    }
+
+    public static void load(Object player, XState state) {
+        state.setEnergy(<load_int>.apply(player, "energy", <default_energy>));
+        state.setLevel(<load_int>.apply(player, "level", <default_level>));
+        state.setUnlocked(<load_bool>.apply(player, "unlocked", <default_unlocked>));
+    }
+}
+```
+
+| Placeholder | Type | What to set | Result |
+| --- | --- | --- | --- |
+| `<save_int>` | TriConsumer<Object, String, Integer> | Save integer function | Writes integer data |
+| `<save_bool>` | TriConsumer<Object, String, Boolean> | Save boolean function | Writes boolean data |
+| `<load_int>` | TriFunction<Object, String, Integer, Integer> | Load integer function | Reads int with default |
+| `<load_bool>` | TriFunction<Object, String, Boolean, Boolean> | Load bool function | Reads bool with default |
+| `<default_energy>` | int | Fallback value | Used when no save exists |
+| `<default_level>` | int | Fallback value | Used when no save exists |
+| `<default_unlocked>` | boolean | Fallback value | Used when no save exists |
+
+---
+
+## 8. Command Template (debug / operation)
+```java
+package com.yourname.yourmod.systems.command;
+
+public final class XCommands {
+    private XCommands() {}
+
+    public static void register() {
+        <register_command>.accept("<command_name>", ctx -> {
+            Object player = ctx.player();
+            XState state = XService.byPlayer(player);
+            state.setEnergy(<command_energy_set>);
+            return 1;
+        });
+    }
+}
+```
+
+| Placeholder | Type | What to set | Result |
+| --- | --- | --- | --- |
+| `<register_command>` | BiConsumer<String, CommandHandler> | Command registration function | Registers command |
+| `<command_name>` | string | Command text (without `/`) | Command trigger |
+| `<command_energy_set>` | int | New energy value | Useful for testing |
+
+---
+
+## 9. Single Initialization Entry Point
+```java
+package com.yourname.yourmod;
+
+public final class MyModInit {
+    private MyModInit() {}
+
+    public static void init() {
+        XSync.register();
+        XEvents.register();
+        XClient.register();
+        XCommands.register();
+    }
+}
+```
+
+| Placeholder | Type | What to set | Result |
+| --- | --- | --- | --- |
+| (none) | - | Keep call order | Starts all subsystems |
+
+---
+
+## 10. “Minimum Build” checklist (copy before release)
+- [ ] IDs replaced (`<item_id>`, `<block_id>`, `<sync_packet_id>`, etc.)
+- [ ] Join defaults set (`<join_energy>`, `<join_level>`, `<join_unlocked>`)
+- [ ] Tick values set (`<recovery_interval_tick>`, `<recovery_amount>`)
+- [ ] Save/load functions connected
+- [ ] Sync send/apply functions connected
+- [ ] Init entry point calls all register methods
+
+# Do / Don't
 Do:
 - Keep system logic testable and pure
 - Use `Object` as the shared API boundary
@@ -325,7 +613,8 @@ Do:
 Don't:
 - Import Minecraft classes into shared system core
 - Mix Forge/Fabric code in one shared class
-- Put UI/render assumptions into server-side logic
+- Leave `<...>` placeholders unedited
+- Skip sync/persistence when state is user-visible
 
 ## Validation
 ```bash
