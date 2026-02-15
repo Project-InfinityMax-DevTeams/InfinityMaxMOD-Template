@@ -6,6 +6,8 @@ public final class BlockBuilder {
 
     private final String id;
     private Object template;
+    private float strength = 1.0f;
+    private boolean noOcclusion = false;
 
     public BlockBuilder(String id) {
         this.id = id;
@@ -17,16 +19,25 @@ public final class BlockBuilder {
     }
 
     public BlockBuilder strength(float value) {
+        this.strength = value;
         return this;
     }
 
     public BlockBuilder noOcclusion() {
+        this.noOcclusion = true;
         return this;
     }
 
     public Object build() {
         Object block = template != null ? template : new Object();
-        ModRegistries.registerBlock(id, block);
+
+        ModRegistries.registerBlock(
+                id,
+                block,
+                strength,
+                noOcclusion
+        );
+
         return block;
     }
 }
