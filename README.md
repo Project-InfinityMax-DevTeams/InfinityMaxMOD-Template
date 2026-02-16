@@ -37,6 +37,7 @@ gradlew :fabric:build
 - Coding guide: [docs/coding.md](docs/coding.md)
 - About: [docs/about.md](docs/about.md)
 - Custom system: [docs/custom_system.md](docs/custom_system.md)
+- System runtime guide: [docs/system_runtime.md](docs/system_runtime.md)
 
 ## Support Notes
 - Keep common code platform-neutral (no direct Minecraft imports)

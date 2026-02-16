@@ -28,6 +28,9 @@ public final class DataDrivenLoader {
             } else {
                 definition.apply(system);
             }
+
+            System.out.println("[SystemDSL] bound system='" + definition.systemId()
+                    + "' properties=" + definition.properties());
         }
     }
 }
