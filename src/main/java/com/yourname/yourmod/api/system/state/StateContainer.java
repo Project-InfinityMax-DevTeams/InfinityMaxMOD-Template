@@ -14,6 +14,12 @@ public final class StateContainer {
         if (value == null) {
             throw new IllegalArgumentException("State value cannot be null");
         }
+        if (!key.type().isInstance(value)) {
+            throw new IllegalArgumentException(
+                "Invalid value type for key. Expected: "
+                + key.type().getName()
+            );
+        }
         values.put(key, value);
     }
 
