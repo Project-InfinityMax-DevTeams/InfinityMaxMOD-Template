@@ -7,7 +7,6 @@ import java.util.Objects;
  */
 public final class StateKey<T> {
 
-    private final String id;
     private final Class<T> type;
 
     private StateKey(String id, Class<T> type) {
@@ -15,12 +14,21 @@ public final class StateKey<T> {
         this.type = type;
     }
 
-    public static <T> StateKey<T> of(String id, Class<T> type) {
-        return new StateKey<>(id, type);
-    }
+    public final class StateKey<T> {
 
-    public String id() {
-        return id;
+        private final Class<T> type;
+
+        private StateKey(Class<T> type) {
+            this.type = type;
+        }
+
+        public static <T> StateKey<T> create(Class<T> type) {
+            return new StateKey<>(type);
+        }
+
+        public Class<T> type() {
+            return type;
+        }
     }
 
     public Class<T> type() {
