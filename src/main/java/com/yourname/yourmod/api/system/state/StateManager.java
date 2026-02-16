@@ -2,9 +2,9 @@ package com.yourname.yourmod.api.system.state;
 
 public interface StateManager {
 
-    StateContainer attach(Object owner);
+    StateContainer attach(StateOwner owner);
 
-    StateContainer getOrCreate(Object owner);
+    StateContainer getOrCreate(StateOwner owner);
 
-    void detach(Object owner);
+    void detach(StateOwner owner);
 }
