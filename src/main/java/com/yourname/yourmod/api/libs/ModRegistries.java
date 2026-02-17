@@ -1,26 +1,36 @@
-package com.yourname.yourmod.api.libs;
+package com.yourname.yourmod.loader;
 
-import com.yourname.yourmod.loader.Platform;
+import com.yourname.yourmod.api.libs.internal.*;
 
-public final class ModRegistries {
+public final class Platform {
+    private static final Platform INSTANCE = new Platform();
+    private final Registries registries = new Registries();
 
-    private ModRegistries() {}
+    private Platform() {}
 
-    public static <T> void registerItem(String id, T item) {
-        Platform.get().registries().item(id, item);
+    public static Platform get() {
+        return INSTANCE;
     }
 
-    public static <T> void registerBlock(String id, T block, float strength, boolean noOcclusion) {
-        // 実装はとりあえず既存の block() に渡す
-        Platform.get().registries().block(id, block);
-        // strength/noOcclusion は無視してもコンパイルは通る
+    public Registries registries() {
+        return registries;
     }
 
-    public static <T, C> void registerEntity(String id, T entityType, C category, float width, float height) {
-        Platform.get().registries().entity(id, entityType, category, width, height);
-    }
+    public static final class Registries {
+        public <T> void item(String id, T item) {
+            Platform.get().registries().item(id, item);
+        }
 
-    public static <T, B> void registerBlockEntity(String id, T blockEntityType, B... blocks) {
-        Platform.get().registries().blockEntity(id, blockEntityType, blocks);
+        public <T> void block(String id, T block) {
+            Platform.get().registries().block(id, block);
+        }
+
+        public <T, C> void entity(String id, T entity, C category, float width, float height) {
+            Platform.get().registries().entity(id, entityType, category, width, height);
+        }
+
+        public <T, B> void blockEntity(String id, T entity, B... blocks) {
+            Platform.get().registries().blockEntity(id, blockEntityType, blocks);
+        }
     }
 }
