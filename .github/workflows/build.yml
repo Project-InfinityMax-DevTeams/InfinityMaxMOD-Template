@@ -1,45 +1,69 @@
-name: CI Build
+name: ERROR DEBUG TEST
 
+# main / master に push されたときのみ起動
 on:
   push:
-    branches: [ "main", "master" ]  # ← mainのみ起動
+    branches: [ "main", "master" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
+    # 自動コミット用の権限
     permissions:
-      contents: write  # 自動コミット用
+      contents: write
 
     steps:
-      - name: Checkout
+      # リポジトリ取得
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup JDK 17
+      # JDK 17 セットアップ（Minecraft 1.20.1想定）
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Grant permission
+      # gradlew に実行権限付与
+      - name: Grant execute permission
         run: chmod +x gradlew
 
+      # Gradle ビルド実行（失敗しても止めない）
       - name: Run Gradle Build
         id: gradle
-        continue-on-error: true
         run: |
           mkdir -p ci-logs
+          
+          # エラーで即終了しないようにする
+          set +e
+          
+          # ビルド実行（ログをファイルへ）
           ./gradlew build --stacktrace --info > ci-logs/build-log.txt 2>&1
+          
+          # 終了コード保存
+          echo "EXIT_CODE=$?" >> $GITHUB_ENV
+        continue-on-error: true
 
-      # 失敗時のみログ保存
+      # ログを ci-logs ブランチへ強制更新
       - name: Commit log to ci-logs branch
-        if: steps.gradle.outcome == 'failure'
+        if: always()
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
 
+          # ci-logs ブランチへ切り替え（なければ作成）
           git fetch origin
           git checkout -B ci-logs
+          
           git add ci-logs/build-log.txt
-          git commit -m "Update CI build log"
+          
+          # 変更がある場合のみコミット
+          git diff --cached --quiet || git commit -m "Update CI build log"
+          
           git push origin ci-logs --force
+
+      # ビルドが失敗していたらジョブを赤にする
+      - name: Fail job if build failed
+        if: env.EXIT_CODE != '0'
+        run: exit 1
