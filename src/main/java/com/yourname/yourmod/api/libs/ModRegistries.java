@@ -1,36 +1,22 @@
-package com.yourname.yourmod.loader;
+package com.yourname.yourmod.api.libs;
 
-import com.yourname.yourmod.api.libs.internal.*;
+import com.yourname.yourmod.loader.Platform;
 
-public final class Platform {
-    private static final Platform INSTANCE = new Platform();
-    private final Registries registries = new Registries();
+public final class ModRegistries {
+    private ModRegistries() {}
 
-    private Platform() {}
-
-    public static Platform get() {
-        return INSTANCE;
+    public static <T> void registerItem(String id, T item) {
+        Platform.get().registries().item(id, item);
+    }
+    public static <T> void registerBlock(String id, T block, float strength, boolean noOcclusion) {
+        Platform.get().registries().block(id, block);
     }
 
-    public Registries registries() {
-        return registries;
+    public static <T, C> void registerEntity(String id, T entityType, C category, float width, float height) {
+        Platform.get().registries().entity(id, entityType, category, width, height);
     }
 
-    public static final class Registries {
-        public <T> void item(String id, T item) {
-            Platform.get().registries().item(id, item);
-        }
-
-        public <T> void block(String id, T block) {
-            Platform.get().registries().block(id, block);
-        }
-
-        public <T, C> void entity(String id, T entity, C category, float width, float height) {
-            Platform.get().registries().entity(id, entityType, category, width, height);
-        }
-
-        public <T, B> void blockEntity(String id, T entity, B... blocks) {
-            Platform.get().registries().blockEntity(id, blockEntityType, blocks);
-        }
+    public static <T, B> void registerBlockEntity(String id, T blockEntityType, B... blocks) {
+        Platform.get().registries().blockEntity(id, blockEntityType, blocks);
     }
 }
