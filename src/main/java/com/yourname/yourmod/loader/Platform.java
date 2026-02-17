@@ -4,7 +4,6 @@ import com.yourname.yourmod.api.libs.internal.*;
 public final class Platform {
 
     private static LoaderExpectPlatform instance;
-    private final Registries registries = new Registries();
     private Platform() {}
 
     public static void set(LoaderExpectPlatform platform) {
