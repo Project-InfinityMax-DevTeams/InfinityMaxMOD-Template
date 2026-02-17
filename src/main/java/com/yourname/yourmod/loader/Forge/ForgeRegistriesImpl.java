@@ -22,7 +22,7 @@ public final class ForgeRegistriesImpl implements LoaderExpectPlatform.Registrie
     }
 
     @Override
-    public <T> void entity(String name, T entityType) {
+    public <T, C> void entity(String name, T entityType, C category, float width, float height) {
         entities.put(name, entityType);
     }
 
