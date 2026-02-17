@@ -27,7 +27,7 @@ public final class FabricRegistriesImpl implements LoaderExpectPlatform.Registri
     }
 
     @Override
-    public void blockEntity(String name, Object blockEntityType) {
+    public <T, B> void blockEntity(String name, T blockEntityType, B... blocks) {
         blockEntities.put(name, blockEntityType);
     }
 }
