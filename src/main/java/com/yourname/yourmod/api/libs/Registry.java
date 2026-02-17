@@ -18,7 +18,7 @@ public final class Registry {
         return new BlockBuilder(id);
     }
 
-    public static <T> EntityBuilder<T> entity(String id, Supplier<T> factory) {
+    public static <T,C> EntityBuilder<T,C> entity(String id, Supplier<T> factory) {
         return new EntityBuilder<>(id, factory);
     }
 
