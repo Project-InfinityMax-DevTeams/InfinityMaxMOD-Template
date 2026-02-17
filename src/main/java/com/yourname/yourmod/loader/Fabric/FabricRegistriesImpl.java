@@ -12,17 +12,17 @@ public final class FabricRegistriesImpl implements LoaderExpectPlatform.Registri
     private final Map<String, Object> blockEntities = new HashMap<>();
 
     @Override
-    public void item(String name, Object item) {
+    public <T> void item(String name, T item) {
         items.put(name, item);
     }
 
     @Override
-    public void block(String name, Object block) {
+    public <T> void block(String name, T block) {
         blocks.put(name, block);
     }
 
     @Override
-    public void entity(String name, Object entityType) {
+    public <T, C> void entity(String name, T entityType, C category, float width, float height) {
         entities.put(name, entityType);
     }
 
