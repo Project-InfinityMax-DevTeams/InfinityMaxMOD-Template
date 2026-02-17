@@ -13,7 +13,7 @@ public interface LoaderExpectPlatform {
         <T> void item(String name, T item);
         <T> void block(String name, T block);
         <T> void entity(String name, T entityType);
-        <T> void blockEntity(String name, T blockEntityType);
+        <T, B> void blockEntity(String name, T blockEntityType, B... blocks);
     }
 
     interface Network {
