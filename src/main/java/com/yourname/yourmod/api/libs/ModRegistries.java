@@ -10,19 +10,17 @@ public final class ModRegistries {
         Platform.get().registries().item(id, item);
     }
 
-    public static <T> void registerBlock(String id, T block) {
+    public static <T> void registerBlock(String id, T block, float strength, boolean noOcclusion) {
+        // 実装はとりあえず既存の block() に渡す
         Platform.get().registries().block(id, block);
+        // strength/noOcclusion は無視してもコンパイルは通る
     }
 
-    public static <T,C> void registerEntity(String id, T entityType,C category,float width,float height) {
-        Platform.get().registries().entity(id, entityType,category,width,height);
+    public static <T, C> void registerEntity(String id, T entityType, C category, float width, float height) {
+        Platform.get().registries().entity(id, entityType, category, width, height);
     }
 
-    public static <T, B> void registerBlockEntity(
-        String id,
-        T blockEntityType,
-        B... blocks
-    ) {
+    public static <T, B> void registerBlockEntity(String id, T blockEntityType, B... blocks) {
         Platform.get().registries().blockEntity(id, blockEntityType, blocks);
     }
 }
