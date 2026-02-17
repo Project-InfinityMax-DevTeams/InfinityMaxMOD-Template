@@ -10,20 +10,20 @@ public interface LoaderExpectPlatform {
     Events events();
 
     interface Registries {
-        void item(String name, Object item);
-        void block(String name, Object block);
-        void entity(String name, Object entityType);
-        void blockEntity(String name, Object blockEntityType);
+        <T> void item(String name, T item);
+        <T> void block(String name, T block);
+        <T> void entity(String name, T entityType);
+        <T> void blockEntity(String name, T blockEntityType);
     }
 
     interface Network {
         void register();
-        void sendToServer(Object packet);
-        void sendToPlayer(Object player, Object packet);
+        <T> void sendToServer(T packet);
+        <T> void sendToPlayer(T player, T packet);
     }
 
     interface Events {
         void register();
-        void onPlayerJoin(Object player);
+        <T> void onPlayerJoin(T player);
     }
 }
