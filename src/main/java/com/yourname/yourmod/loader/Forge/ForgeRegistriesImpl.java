@@ -27,7 +27,7 @@ public final class ForgeRegistriesImpl implements LoaderExpectPlatform.Registrie
     }
 
     @Override
-    public <T> void blockEntity(String name, T blockEntityType) {
+    public <T, B> void blockEntity(String name, T blockEntityType, B... blocks) {
         blockEntities.put(name, blockEntityType);
     }
 }
