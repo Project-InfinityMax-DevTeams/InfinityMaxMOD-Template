@@ -7,7 +7,7 @@ public final class EntityBuilder<T, C> {
 
     private final String id;
     private final Supplier<T> factory;
-    private final  Supplier<C> category;
+    private Supplier<C> category;
     private float width = 0.6f;
     private float height = 1.8f;
 
@@ -29,7 +29,7 @@ public final class EntityBuilder<T, C> {
 
     public T build() {
         T entity = factory.get();
-        ModRegistries.registerEntity(id, entity, category, width, height);
+        ModRegistries.registerEntity(id, entity, category.get(), width, height);
         return entity;
     }
 }
