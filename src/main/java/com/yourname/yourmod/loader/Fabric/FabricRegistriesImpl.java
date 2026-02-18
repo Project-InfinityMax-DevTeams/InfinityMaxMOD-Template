@@ -17,9 +17,8 @@ public final class FabricRegistriesImpl implements LoaderExpectPlatform.Registri
     }
 
     @Override
-    public <T> T block(String name, T block, float strength, boolean noOcclusion) {
+    public <T>  void block(String name, T block, float strength, boolean noOcclusion) {
         blocks.put(name, block);
-        return block;
     }
 
     @Override
