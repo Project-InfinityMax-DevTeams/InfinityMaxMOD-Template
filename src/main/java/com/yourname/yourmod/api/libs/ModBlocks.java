@@ -8,7 +8,7 @@ public final class ModBlocks {
 
     public static <T> T register(String name, Supplier<T> block, float hardness, boolean isTransparent) {
         T value = block.get();
-        ModRegistries.registerBlock(name, value hardness isTransparent);
+        ModRegistries.registerBlock(name, value, hardness, isTransparent);
         return value;
     }
 }
