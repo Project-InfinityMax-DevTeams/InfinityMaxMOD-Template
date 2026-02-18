@@ -7,7 +7,6 @@ public final class EntityBuilder<T, C> {
 
     private final String id;
     private final Supplier<T> factory;
-    private final EntityType<T> entityType;
     private C category;
     private float width = 0.6f;
     private float height = 1.8f;
