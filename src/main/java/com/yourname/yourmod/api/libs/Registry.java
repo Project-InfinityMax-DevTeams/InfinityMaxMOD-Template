@@ -22,7 +22,7 @@ public final class Registry {
         return new EntityBuilder<>(id, factory);
     }
 
-    public static <T> BlockEntityBuilder<T> blockEntity(String id, Supplier<T> factory) {
+    public static <T,B> BlockEntityBuilder<T,B> blockEntity(String id, Supplier<T> factory) {
         return new BlockEntityBuilder<>(id, factory);
     }
 }

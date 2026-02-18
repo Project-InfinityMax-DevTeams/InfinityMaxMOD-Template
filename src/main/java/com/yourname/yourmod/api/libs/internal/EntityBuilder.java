@@ -23,12 +23,13 @@ public final class EntityBuilder<T, C> {
 
     public EntityBuilder<T, C> size(float width, float height) {
         this.width = width;
-        this.height = height; // ← セミコロン修正済み
+        this.height = height; 
         return this;
     }
 
-    public T build() {
+    public <T,C> build() {
         T entity = factory.get();
+        C entityType = category.get();
         ModRegistries.registerEntity(id, entity, category, width, height);
         return entity;
     }
