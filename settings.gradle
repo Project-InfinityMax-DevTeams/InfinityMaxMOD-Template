@@ -9,7 +9,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "infinitymaxapiName"
+rootProject.name = "InfinityMaxAPI"
 
 // サブプロジェクトを登録
 include 'forge', 'fabric'
