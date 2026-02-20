@@ -2,8 +2,8 @@ package com.yuyuto.infinitymaxapi.loader.forge;
 
 import com.yuyuto.infinitymaxapi.api.libs.datagen.Loot;
 import com.yuyuto.infinitymaxapi.api.libs.datagen.Model;
-import com.yuyuto.infinitymaxapi.libs.datagen.TagKey;
-import com.yuyuto.infinitymaxapi.platform.PlatformDataGen;
+import com.yuyuto.infinitymaxapi.api.libs.datagen.TagKey;
+import com.yuyuto.infinitymaxapi.api.platform.PlatformDataGen;
 import java.util.List;
 
 public final class ForgeDataGenImpl implements PlatformDataGen.Handler {

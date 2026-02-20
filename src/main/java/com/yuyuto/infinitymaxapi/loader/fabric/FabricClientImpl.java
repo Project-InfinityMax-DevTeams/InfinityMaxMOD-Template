@@ -5,6 +5,7 @@ import com.yuyuto.infinitymaxapi.api.client.ClientEntrypoint;
 public final class FabricClientImpl {
 
     public void init() {
+        FabricClientImpl ClientEntrypoint = new FabricClientImpl();
         ClientEntrypoint.init();
     }
 }
