@@ -39,13 +39,13 @@ When building with this MDK, it operates as follows:
   → Only after this does the common API finally start working
 3. Register network events
   → Phase connecting Forge/Fabric's event systems to the common DSL
-4. Execute `YourMod.init()`
+4. Execute `infinitymaxapi.init()`
   → Executes the code you wrote
 5. Delegate common API/DSL calls to loader implementation
   → The loader implementation is called within `Registry.block()`
 
 ## Where to Store Your Code
-src/main/java/com/yourname/yourmod/
+src/main/java/com/yourname/infinitymaxapi/
 ⇒api/
 ┗ Here, you implement the conversion functionality that allows the Loader to load your code.
 ⇒loader/
@@ -74,20 +74,20 @@ Specifying just forge or just fabric as shown generates a jar file.
 The bottom command performs simultaneous generation and verification! In other words, it's the build command.
 
 ## Developer Workspace and Code Notes
-First, replace “yourname” and “yourmod” with your actual name and MOD name.
+First, replace “yourname” and “infinitymaxapi” with your actual name and MOD name.
 **These are placeholder names. While functional, we strongly recommend changing them personally.**
 Change not only folder names but also package declarations and import statements within `api/` and `loader/`.
 
 Developers should handle common MOD logic, such as adding blocks, MOB AI processing, and BlockEntity registration, in the following location:
-`src/main/java/com/yourname/yourmod/logics`
-Replace `yourname` and `yourmod` with your name and MOD name.
+`src/main/java/com/yourname/infinitymaxapi/logics`
+Replace `yourname` and `infinitymaxapi` with your name and MOD name.
 Below are two examples of good and bad code practices for this location.
 ### Bad Example 1: Using a Minecraft-style pattern in the common layer
 ```java
 package com.example.mymod;
 
 import net.minecraft.world.entity.player.Player;
-import com.yourname.yourmod.api.libs.Events;
+import com.yuyuto.infinitymaxapi.api.libs.Events;
 
 public final class BadFeature {
 
@@ -102,13 +102,13 @@ public final class BadFeature {
 ```
 Doing this will cause an error because the Minecraft type isn't loaded in the common layer.
 Forge might work, but Fabric will definitely break.
-Please import and use everything as `com.{yourname}.{yourmod}.api.libs.desired_system`.
+Please import and use everything as `com.{yourname}.{infinitymaxapi}.api.libs.desired_system`.
 If you're unsure what to use, [this guide](A) explains it.
 ### Bad Example 2: Writing Logic Assuming a Loader
 ```java
 package com.example.mymod;
 
-import com.yourname.yourmod.loader.Forge.SomeForgeOnlyClass;
+import com.yuyuto.infinitymaxapi.loader.Forge.SomeForgeOnlyClass;
 
 public final class BadFeature2 {
 
@@ -126,7 +126,7 @@ This is because the dependency direction is reversed.
 ```java
 package com.example.mymod.feature;
 
-import com.yourname.yourmod.api.libs.Events;
+import com.yuyuto.infinitymaxapi.api.libs.Events;
 
 public final class GoodFeature {
 
@@ -144,7 +144,7 @@ public final class GoodFeature {
 ```java
 package com.example.mymod.feature;
 
-import com.yourname.yourmod.api.libs.Registry;
+import com.yuyuto.infinitymaxapi.api.libs.Registry;
 
 public final class GoodBlockFeature {
 
@@ -217,14 +217,14 @@ Mod開発者として、通常は共通レイヤー内部でのみコードを�
   →これをしてやっとこさ共通APIが動くことになる
 3. ネットワーク・イベントを登録
   →Forge/Fabricのイベントシステムを共通DSLに接続してるフェーズ
-4. `YourMod.init()` 実行
+4. `infinitymaxapi.init()` 実行
   →あなた達の書いたコードの実行
 5. 共通API/DSL呼び出しをローダー実装へ委譲
   → Registry.block() の中で loader 実装が呼ばれる
 というふうに動いてます。
 
 ## コードの保管場所について
-src/main/java/com/yourname/yourmod/
+src/main/java/com/yourname/infinitymaxapi/
 ⇒api/
 ┗ここでは、あなたたちのコードをLoader側に読み込ませる変換機能を実装してます。
 ⇒loader/
@@ -253,20 +253,20 @@ gradlew clean build
 そして一番下は同時生成と検証をしてくれるものです！つまりビルドコマンドです。
 
 ## 開発者の開発場所とコードの諸注意
-最初に、yournameとyourmodの名前をあなたの名前とあなたのMOD名にしてください。
+最初に、yournameとinfinitymaxapiの名前をあなたの名前とあなたのMOD名にしてください。
 **この名前は仮の名前です。動きますが絶対に個人で変えておくことをおすすめします。**
 フォルダー名だけではなく、api/及びloader/の中も同様にpackage文やimport文を変えてください。
 
 開発者は、以下の場所で共通で使うMODの処理、例えばブロックの追加、MOBのAI処理、BlockEntity登録を行うようにしてください。
-`src/main/java/com/yourname/yourmod/logics`
-yournameとyourmodにはあなたの名前とMODの名前が入ります。
+`src/main/java/com/yourname/infinitymaxapi/logics`
+yournameとinfinitymaxapiにはあなたの名前とMODの名前が入ります。
 以下より、その場所で書くコードの良い例と悪い例を2つ紹介します。
 ### 悪い例1:共通層でMinecraft型を使う
 ```java
 package com.example.mymod;
 
 import net.minecraft.world.entity.player.Player;
-import com.yourname.yourmod.api.libs.Events;
+import com.yuyuto.infinitymaxapi.api.libs.Events;
 
 public final class BadFeature {
 
@@ -280,13 +280,13 @@ public final class BadFeature {
 ```
 これをしてしまうとErrorが出てしまいます。共通層ではminecraft型が読み込まれないからです。
 Forgeは通るかもですが、Fabricは確実に壊れます。
-すべて`com.{yourname}.{yourmod}.api.libs.任意の使用したいシステム`でimportして使ってください。
+すべて`com.{yourname}.{infinitymaxapi}.api.libs.任意の使用したいシステム`でimportして使ってください。
 何を使えばいいのかわからない場合は[こちら](A)でご案内してます。
 ### 悪い例②：ローダー前提のロジックを書く
 ```java
 package com.example.mymod;
 
-import com.yourname.yourmod.loader.Forge.SomeForgeOnlyClass;
+import com.yuyuto.infinitymaxapi.loader.Forge.SomeForgeOnlyClass;
 
 public final class BadFeature2 {
 
@@ -305,7 +305,7 @@ public final class BadFeature2 {
 ```java
 package com.example.mymod.feature;
 
-import com.yourname.yourmod.api.libs.Events;
+import com.yuyuto.infinitymaxapi.api.libs.Events;
 
 public final class GoodFeature {
 
@@ -323,7 +323,7 @@ public final class GoodFeature {
 ```java
 package com.example.mymod.feature;
 
-import com.yourname.yourmod.api.libs.Registry;
+import com.yuyuto.infinitymaxapi.api.libs.Registry;
 
 public final class GoodBlockFeature {
 

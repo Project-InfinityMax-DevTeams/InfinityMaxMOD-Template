@@ -20,7 +20,7 @@ Do not place loader-specific imports in `api/`.
 ## Dependency boundary
 Allowed in common code:
 - Java standard library
-- Template shared APIs in `com.yourname.yourmod.api.*`
+- Template shared APIs in `com.yuyuto.infinitymaxapi.api.*`
 
 Not allowed in common code:
 - `net.minecraft.*`
@@ -130,7 +130,7 @@ Forge と Fabric の両方で安定動作する共通コードを維持するた
 ## 依存境界
 共通コードで許可:
 - Java標準ライブラリ
-- `com.yourname.yourmod.api.*` の共有API
+- `com.yuyuto.infinitymaxapi.api.*` の共有API
 
 共通コードで禁止:
 - `net.minecraft.*`

@@ -1,24 +1,23 @@
 {
   "schemaVersion": 1,
-  "id": "yourmod",
-  "version": "0.1.0",
-  "name": "Your Mod Name",
-  "description": "A very strong multi-loader Minecraft mod.",
+  "id": "infinitymaxapi",
+  "version": "${version}",
+  "name": "InfinityMax API",
+  "description": "Core API for InfinityMax ecosystem.",
   "authors": [
-    "YourName"
+    "Yuyuto_Official"
   ],
-  "contact": {
-    "homepage": "",
-    "sources": ""
-  },
+  "contact": {},
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
     "main": [
-    ],
-    "client": [
+      "com.yuyuto.infinitymaxapi.fabric.InfinityMaxFabric"
     ]
   },
-  "mixins": [
-  ]
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": ">=1.20",
+    "fabric-api": "*"
+  }
 }

@@ -30,7 +30,7 @@ gradlew :fabric:build
 
 ## 3. Project Layout
 ```text
-src/main/java/com/yourname/yourmod/
+src/main/java/com/yourname/infinitymaxapi/
   api/                # Shared API and DSL
   loader/             # Loader bridge + Forge/Fabric implementations
 forge/                # Forge module settings
@@ -117,7 +117,7 @@ Entrypoints:
 Flow:
 1. Set current platform bridge (`Platform.set(...)`)
 2. Register network/events
-3. Run `YourMod.init()`
+3. Run `infinitymaxapi.init()`
 
 ## 8. How to Add New Feature Safely
 1. Define shared API/DSL in `api`
@@ -198,7 +198,7 @@ gradlew :fabric:build
 
 ## 3. プロジェクト構成
 ```text
-src/main/java/com/yourname/yourmod/
+src/main/java/com/yourname/infinitymaxapi/
   api/                # 共通APIとDSL
   loader/             # ローダーブリッジ + Forge/Fabric実装
 forge/                # Forgeモジュール設定
@@ -285,7 +285,7 @@ Forge/Fabric 実装クラス内だけでキャスト・変換します。
 流れ:
 1. `Platform.set(...)` で実行プラットフォームを設定
 2. network/events を登録
-3. `YourMod.init()` を実行
+3. `infinitymaxapi.init()` を実行
 
 ## 8. 新機能追加の安全手順
 1. `api` に共通API/DSLを定義

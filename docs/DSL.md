@@ -6,7 +6,7 @@ All code snippets are aligned with current API signatures.
 
 ## 1. Registry DSL
 Entry point:
-- `com.yourname.yourmod.api.libs.Registry`
+- `com.yuyuto.infinitymaxapi.api.libs.Registry`
 
 Available methods:
 - `Registry.block(String id)` -> `BlockBuilder`
@@ -107,7 +107,7 @@ Object blockEntity = Registry.blockEntity("sample_be", Object::new)
 
 ## 2. Event DSL
 Entry point:
-- `com.yourname.yourmod.api.libs.Events`
+- `com.yuyuto.infinitymaxapi.api.libs.Events`
 
 Available methods:
 - `Events.on(Class<T>)`
@@ -131,7 +131,7 @@ Events.playerJoin()
 
 ## 3. Client DSL
 Entry point:
-- `com.yourname.yourmod.api.libs.Client`
+- `com.yuyuto.infinitymaxapi.api.libs.Client`
 
 Builder objects:
 - `renders()` -> `RenderDSL`
@@ -157,7 +157,7 @@ Note:
 
 ## 4. Datagen DSL
 Entry point:
-- `com.yourname.yourmod.api.libs.datagen.DataGen`
+- `com.yuyuto.infinitymaxapi.api.libs.datagen.DataGen`
 
 Available methods:
 - `DataGen.block(String)` -> `BlockGen`
@@ -176,7 +176,7 @@ DataGen.entity("sample_entity").lang("Sample Entity").end();
 
 ## 5. Packet DSL
 Entry point:
-- `com.yourname.yourmod.api.libs.packet.Packet`
+- `com.yuyuto.infinitymaxapi.api.libs.packet.Packet`
 
 Core methods:
 - `Packet.define(String id)`
@@ -212,7 +212,7 @@ Use this path for shared event behavior.
 
 ## 1. Registry DSL
 インポート入口:
-- `com.yourname.yourmod.api.libs.Registry`
+- `com.yuyuto.infinitymaxapi.api.libs.Registry`
 
 利用可能メソッド:
 - `Registry.block(String id)` -> `BlockBuilder`
@@ -323,7 +323,7 @@ Object blockEntity = Registry.blockEntity("sample_be", Object::new)
 
 ## 2. Event DSL
 入口:
-- `com.yourname.yourmod.api.libs.Events`
+- `com.yuyuto.infinitymaxapi.api.libs.Events`
 
 構文:
 ```java
@@ -351,7 +351,7 @@ Events.playerJoin()
 
 ## 3. Client DSL
 入口:
-- `com.yourname.yourmod.api.libs.Client`
+- `com.yuyuto.infinitymaxapi.api.libs.Client`
 
 テンプレ:
 ```java
@@ -377,7 +377,7 @@ Client.init(client -> {
 
 ## 4. Datagen DSL
 入口:
-- `com.yourname.yourmod.api.libs.datagen.DataGen`
+- `com.yuyuto.infinitymaxapi.api.libs.datagen.DataGen`
 
 構文:
 ```java
@@ -403,7 +403,7 @@ DataGen.entity("sample_entity").lang("Sample Entity").end();
 
 ## 5. Packet DSL
 入口:
-- `com.yourname.yourmod.api.libs.packet.Packet`
+- `com.yuyuto.infinitymaxapi.api.libs.packet.Packet`
 
 テンプレ:
 ```java

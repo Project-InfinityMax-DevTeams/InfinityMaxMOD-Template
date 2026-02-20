@@ -54,8 +54,8 @@ gradlew :fabric:build
 - `DataDrivenLoader`: DSL declaration binding to runtime systems
 
 Key packages:
-- API layer: `com.yourname.yourmod.api.system.*`
-- Loader bridge layer: `com.yourname.yourmod.loader.bridge.*`
+- API layer: `com.yuyuto.infinitymaxapi.api.system.*`
+- Loader bridge layer: `com.yuyuto.infinitymaxapi.loader.bridge.*`
 
 ---
 
@@ -114,5 +114,5 @@ gradlew :fabric:build
 - `DataDrivenLoader`: DSL宣言とランタイムシステムのバインディング
 
 主要パッケージ:
-- API層: `com.yourname.yourmod.api.system.*`
-- ローダーブリッジ層: `com.yourname.yourmod.loader.bridge.*`
+- API層: `com.yuyuto.infinitymaxapi.api.system.*`
+- ローダーブリッジ層: `com.yuyuto.infinitymaxapi.loader.bridge.*`

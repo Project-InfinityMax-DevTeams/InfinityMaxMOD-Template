@@ -9,7 +9,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "YourModName"
+rootProject.name = "infinitymaxapiName"
 
 // サブプロジェクトを登録
 include 'forge', 'fabric'

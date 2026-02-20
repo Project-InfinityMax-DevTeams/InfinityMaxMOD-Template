@@ -19,7 +19,7 @@ processResources {
     inputs.property "version", prop('mod_version', '0.1.0')
     filesMatching('fabric.mod.json') {
         expand(
-            mod_id: prop('mod_id', 'yourmod'),
+            mod_id: prop('mod_id', 'infinitymaxapi'),
             mod_name: prop('mod_name', 'Your Mod Name'),
             mod_version: prop('mod_version', '0.1.0'),
             mod_description: prop('mod_description', ''),
@@ -31,7 +31,7 @@ processResources {
 }
 
 jar {
-    def id = prop('mod_id', 'yourmod')
+    def id = prop('mod_id', 'infinitymaxapi')
     def ver = prop('mod_version', '0.1.0')
     archiveBaseName.set(id + "-fabric")
     archiveVersion.set(ver)
@@ -45,7 +45,7 @@ sourceSets {
         }
         java {
             srcDir "../src/main/java"
-            exclude "com/yourname/yourmod/loader/Forge/**"
+            exclude "com/yourname/infinitymaxapi/loader/Forge/**"
         }
     }
 }
