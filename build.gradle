@@ -11,7 +11,7 @@ def prop = { String name, def defaultVal = null ->
 }
 
 // グループ／バージョンを root から設定
-group = prop('mod_group', 'com.example')
+group = prop('mod_group', 'com.yuyuto')
 version = prop('mod_version', '0.1.0')
 
 // Java toolchain を共通設定
