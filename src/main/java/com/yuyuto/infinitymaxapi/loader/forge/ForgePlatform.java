@@ -1,6 +1,7 @@
 package com.yuyuto.infinitymaxapi.loader.forge;
 
 import com.yuyuto.infinitymaxapi.loader.LoaderExpectPlatform;
+import com.yuyuto.infinitymaxapi.loader.forge.*;
 
 public final class ForgePlatform implements LoaderExpectPlatform {
 

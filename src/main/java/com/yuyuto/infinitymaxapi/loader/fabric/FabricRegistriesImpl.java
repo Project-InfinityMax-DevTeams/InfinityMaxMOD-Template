@@ -1,6 +1,7 @@
 package com.yuyuto.infinitymaxapi.loader.fabric;
 
 import com.yuyuto.infinitymaxapi.loader.LoaderExpectPlatform;
+
 import java.util.HashMap;
 import java.util.Map;
 
