@@ -4,7 +4,7 @@ name: Repository Directory Map
 on:
   workflow_dispatch:
   push:
-    branches: [ "main", "master" ]
+    branches: [ "master" ]
 
 jobs:
   generate-map:
