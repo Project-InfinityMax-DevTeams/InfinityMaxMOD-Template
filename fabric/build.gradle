@@ -39,7 +39,7 @@ jar {
 }
 
 sourceSets {
-    main {
+    main{
         resources {
             srcDir "../src/main/resources"
         }
@@ -47,5 +47,5 @@ sourceSets {
             srcDir "../src/main/java"
             exclude "com/yuyuto/infinitymaxapi/loader/Forge/**"
         }
-    }
+    } as String
 }
