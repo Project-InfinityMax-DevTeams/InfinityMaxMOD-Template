@@ -57,7 +57,9 @@ subprojects {
     dependsOn(':fabric:build', ':forge:build')
 }
 
-tasks.named('compileJava') {
-    enabled = false
+tasks.withType(JavaCompile).configureEach {
+    if (project == rootProject) {
+        enabled = false
+    }
 }
 

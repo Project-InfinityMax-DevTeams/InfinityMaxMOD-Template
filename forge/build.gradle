@@ -54,7 +54,7 @@ sourceSets {
         }
         java {
             srcDir "../src/main/java"
-            exclude "com/yuyuto/infinitymaxapi/loader/Fabric/**"
+            exclude "com/yuyuto/infinitymaxapi/loader/fabric/**"
         }
     } as String
 }
