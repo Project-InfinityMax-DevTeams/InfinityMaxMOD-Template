@@ -1,8 +1,8 @@
-# InfinityMaxMOD-Template
+# InfinityMaxMOD-API
 
 ## Overview
-InfinityMaxMOD-Template is a multi-loader Minecraft MDK template.
-One shared codebase can produce both Forge and Fabric outputs.
+Development library and common API for InfinityMax MODs.
+Many common standards are implemented.
 
 ## Features
 - Shared API/DSL structure in common code
@@ -30,15 +30,6 @@ gradlew :forge:build
 gradlew :fabric:build
 ```
 
-## Documentation
-- Main index: [docs/README.md](docs/README.md)
-- Full MDK guide: [docs/MDK_GUIDE.md](docs/MDK_GUIDE.md)
-- DSL reference: [docs/DSL.md](docs/DSL.md)
-- Coding guide: [docs/coding.md](docs/coding.md)
-- About: [docs/about.md](docs/about.md)
-- Custom system: [docs/custom_system.md](docs/custom_system.md)
-- System runtime guide: [docs/system_runtime.md](docs/system_runtime.md)
-
 ## Support Notes
 - Keep common code platform-neutral (no direct Minecraft imports)
 - Put loader-specific conversions in `loader/Forge` and `loader/Fabric`
@@ -59,11 +50,11 @@ Key packages:
 
 ---
 
-# InfinityMaxMOD-Template
+# InfinityMaxMOD-API
 
 ## 概要
-InfinityMaxMOD-Template は、マルチローダー対応の Minecraft MDK テンプレートです。
-1つの共通コードベースから Forge と Fabric の両方を出力できます。
+InfinityMaxAPIは、InfinityMaxのMODに必要なライブラリとアドオンに必要な開発APIを内包した前提ライブラリAPIです。
+InfinityMaxシリーズのMODをプレイする際には、このMODを導入してください。
 
 ## 特徴
 - 共通層に共有 API / DSL 構造
@@ -90,14 +81,6 @@ gradlew :forge:build
 ```bash
 gradlew :fabric:build
 ```
-
-## ドキュメント
-- メイン索引: [docs/README.md](docs/README.md)
-- MDK総合ガイド: [docs/MDK_GUIDE.md](docs/MDK_GUIDE.md)
-- DSLリファレンス: [docs/DSL.md](docs/DSL.md)
-- コーディングガイド: [docs/coding.md](docs/coding.md)
-- 概要: [docs/about.md](docs/about.md)
-- カスタムシステム: [docs/custom_system.md](docs/custom_system.md)
 
 ## サポートメモ
 - 共通層はプラットフォーム非依存で保つ（Minecraft直import禁止）
